@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35122.118
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobChanceCalculator", "JobChanceCalculator\JobChanceCalculator.csproj", "{B699DA2A-7191-4DA7-8CE5-47BFF95A1842}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B699DA2A-7191-4DA7-8CE5-47BFF95A1842}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B699DA2A-7191-4DA7-8CE5-47BFF95A1842}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B699DA2A-7191-4DA7-8CE5-47BFF95A1842}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B699DA2A-7191-4DA7-8CE5-47BFF95A1842}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5E16F7D7-B022-40F1-BA74-11A43D0F9D55}
+	EndGlobalSection
+EndGlobal
