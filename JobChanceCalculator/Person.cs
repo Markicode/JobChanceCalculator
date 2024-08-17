@@ -47,5 +47,14 @@ namespace JobChanceCalculator
             });
             await deletionTask;
         }
+
+        public static async Task AddPerson(string firstName, string lastName)
+        {
+            Task additionTask = Task.Run(() =>
+            {
+                DbConn.PerformNonQuery(@$"INSERT INTO person (first_name, last_name) VALUES ('{firstName}', '{lastName}')");
+            });
+            await additionTask;
+        }
     }
 }

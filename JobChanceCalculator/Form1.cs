@@ -9,6 +9,8 @@ namespace JobChanceCalculator
         List<Button> deleteButtons;
         List<Button> calculateButtons;
         List<Button> cancelButtons;
+        List<TextBox> firstNameTextBoxes;
+        List<TextBox> lastNameTextBoxes;
         List<Person> peopleList;
         Assignment assignment;
 
@@ -31,6 +33,10 @@ namespace JobChanceCalculator
             CalculateButton7, CalculateButton8, CalculateButton9, CalculateButton10};
             this.cancelButtons = new List<Button>() { CancelButton1, CancelButton2, CancelButton3, CancelButton4, CancelButton5, CancelButton6,
             CancelButton7, CancelButton8, CancelButton9, CancelButton10};
+            this.firstNameTextBoxes = new List<TextBox>() { FirstNameTextBox1, FirstNameTextBox2, FirstNameTextBox3, FirstNameTextBox4, FirstNameTextBox5,
+            FirstNameTextBox6, FirstNameTextBox7, FirstNameTextBox8, FirstNameTextBox9, FirstNameTextBox10};
+            this.lastNameTextBoxes = new List<TextBox>() { LastNameTextBox1, LastNameTextBox2, LastNameTextBox3, LastNameTextBox4, LastNameTextBox5,
+            LastNameTextBox6, LastNameTextBox7, LastNameTextBox8, LastNameTextBox9, LastNameTextBox10};
 
             for (int i = 0; i < 10; i++)
             {
@@ -67,6 +73,13 @@ namespace JobChanceCalculator
                 deleteButtons[i].Enabled = true;
                 calculateButtons[i].Enabled = true;
             }
+            for (int i = peopleList.Count; i < 10; i++)
+            {
+                deleteButtons[i].Text = "Add";
+                deleteButtons[i].Enabled = true;
+                firstNameTextBoxes[i].Visible = true;
+                lastNameTextBoxes[i].Visible = true;    
+            }
         }
 
         private async Task ReAssign()
@@ -89,6 +102,30 @@ namespace JobChanceCalculator
                 editButtons[i].Enabled = true;
                 deleteButtons[i].Enabled = true;
                 calculateButtons[i].Enabled = true;
+                firstNameTextBoxes[i].Visible = false;
+                lastNameTextBoxes[i].Visible = false;
+            }
+            for (int i = peopleList.Count; i < 10; i++)
+            {
+                deleteButtons[i].Text = "Add";
+                deleteButtons[i].Enabled = true;
+                firstNameTextBoxes[i].Visible = true;
+                lastNameTextBoxes[i].Visible = true;
+            }
+        }
+
+        private bool validateInput(int textBoxNumber)
+        {
+            string firstName = firstNameTextBoxes[textBoxNumber-1].Text; 
+            string lastName = lastNameTextBoxes[textBoxNumber-1].Text;
+            if (firstName == "" || lastName == "")
+            {
+                MessageBox.Show("Enter a first and a last name.");
+                return false;
+            }
+            else
+            {
+                return true;
             }
         }
 

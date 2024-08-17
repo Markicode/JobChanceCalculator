@@ -100,6 +100,26 @@
             CalculateButton3 = new Button();
             CalculateButton2 = new Button();
             CalculateButton1 = new Button();
+            FirstNameTextBox1 = new TextBox();
+            FirstNameTextBox2 = new TextBox();
+            FirstNameTextBox3 = new TextBox();
+            FirstNameTextBox4 = new TextBox();
+            FirstNameTextBox5 = new TextBox();
+            FirstNameTextBox6 = new TextBox();
+            FirstNameTextBox7 = new TextBox();
+            FirstNameTextBox8 = new TextBox();
+            FirstNameTextBox9 = new TextBox();
+            FirstNameTextBox10 = new TextBox();
+            LastNameTextBox10 = new TextBox();
+            LastNameTextBox9 = new TextBox();
+            LastNameTextBox8 = new TextBox();
+            LastNameTextBox7 = new TextBox();
+            LastNameTextBox6 = new TextBox();
+            LastNameTextBox5 = new TextBox();
+            LastNameTextBox4 = new TextBox();
+            LastNameTextBox3 = new TextBox();
+            LastNameTextBox2 = new TextBox();
+            LastNameTextBox1 = new TextBox();
             SuspendLayout();
             // 
             // ButtonStart
@@ -843,11 +863,211 @@
             CalculateButton1.Text = "Calculate";
             CalculateButton1.UseVisualStyleBackColor = true;
             // 
+            // FirstNameTextBox1
+            // 
+            FirstNameTextBox1.Font = new Font("Yu Gothic UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            FirstNameTextBox1.Location = new Point(193, 64);
+            FirstNameTextBox1.Name = "FirstNameTextBox1";
+            FirstNameTextBox1.Size = new Size(100, 29);
+            FirstNameTextBox1.TabIndex = 72;
+            FirstNameTextBox1.Visible = false;
+            // 
+            // FirstNameTextBox2
+            // 
+            FirstNameTextBox2.Font = new Font("Yu Gothic UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            FirstNameTextBox2.Location = new Point(193, 98);
+            FirstNameTextBox2.Name = "FirstNameTextBox2";
+            FirstNameTextBox2.Size = new Size(100, 29);
+            FirstNameTextBox2.TabIndex = 73;
+            FirstNameTextBox2.Visible = false;
+            // 
+            // FirstNameTextBox3
+            // 
+            FirstNameTextBox3.Font = new Font("Yu Gothic UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            FirstNameTextBox3.Location = new Point(193, 132);
+            FirstNameTextBox3.Name = "FirstNameTextBox3";
+            FirstNameTextBox3.Size = new Size(100, 29);
+            FirstNameTextBox3.TabIndex = 74;
+            FirstNameTextBox3.Visible = false;
+            // 
+            // FirstNameTextBox4
+            // 
+            FirstNameTextBox4.Font = new Font("Yu Gothic UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            FirstNameTextBox4.Location = new Point(193, 166);
+            FirstNameTextBox4.Name = "FirstNameTextBox4";
+            FirstNameTextBox4.Size = new Size(100, 29);
+            FirstNameTextBox4.TabIndex = 75;
+            FirstNameTextBox4.Visible = false;
+            // 
+            // FirstNameTextBox5
+            // 
+            FirstNameTextBox5.Font = new Font("Yu Gothic UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            FirstNameTextBox5.Location = new Point(193, 200);
+            FirstNameTextBox5.Name = "FirstNameTextBox5";
+            FirstNameTextBox5.Size = new Size(100, 29);
+            FirstNameTextBox5.TabIndex = 76;
+            FirstNameTextBox5.Visible = false;
+            // 
+            // FirstNameTextBox6
+            // 
+            FirstNameTextBox6.Font = new Font("Yu Gothic UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            FirstNameTextBox6.Location = new Point(193, 234);
+            FirstNameTextBox6.Name = "FirstNameTextBox6";
+            FirstNameTextBox6.Size = new Size(100, 29);
+            FirstNameTextBox6.TabIndex = 77;
+            FirstNameTextBox6.Visible = false;
+            // 
+            // FirstNameTextBox7
+            // 
+            FirstNameTextBox7.Font = new Font("Yu Gothic UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            FirstNameTextBox7.Location = new Point(193, 268);
+            FirstNameTextBox7.Name = "FirstNameTextBox7";
+            FirstNameTextBox7.Size = new Size(100, 29);
+            FirstNameTextBox7.TabIndex = 78;
+            FirstNameTextBox7.Visible = false;
+            // 
+            // FirstNameTextBox8
+            // 
+            FirstNameTextBox8.Font = new Font("Yu Gothic UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            FirstNameTextBox8.Location = new Point(193, 302);
+            FirstNameTextBox8.Name = "FirstNameTextBox8";
+            FirstNameTextBox8.Size = new Size(100, 29);
+            FirstNameTextBox8.TabIndex = 79;
+            FirstNameTextBox8.Visible = false;
+            // 
+            // FirstNameTextBox9
+            // 
+            FirstNameTextBox9.Font = new Font("Yu Gothic UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            FirstNameTextBox9.Location = new Point(193, 336);
+            FirstNameTextBox9.Name = "FirstNameTextBox9";
+            FirstNameTextBox9.Size = new Size(100, 29);
+            FirstNameTextBox9.TabIndex = 80;
+            FirstNameTextBox9.Visible = false;
+            // 
+            // FirstNameTextBox10
+            // 
+            FirstNameTextBox10.Font = new Font("Yu Gothic UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            FirstNameTextBox10.Location = new Point(193, 370);
+            FirstNameTextBox10.Name = "FirstNameTextBox10";
+            FirstNameTextBox10.Size = new Size(100, 29);
+            FirstNameTextBox10.TabIndex = 81;
+            FirstNameTextBox10.Visible = false;
+            // 
+            // LastNameTextBox10
+            // 
+            LastNameTextBox10.Font = new Font("Yu Gothic UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            LastNameTextBox10.Location = new Point(299, 370);
+            LastNameTextBox10.Name = "LastNameTextBox10";
+            LastNameTextBox10.Size = new Size(192, 29);
+            LastNameTextBox10.TabIndex = 91;
+            LastNameTextBox10.Visible = false;
+            // 
+            // LastNameTextBox9
+            // 
+            LastNameTextBox9.Font = new Font("Yu Gothic UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            LastNameTextBox9.Location = new Point(299, 336);
+            LastNameTextBox9.Name = "LastNameTextBox9";
+            LastNameTextBox9.Size = new Size(192, 29);
+            LastNameTextBox9.TabIndex = 90;
+            LastNameTextBox9.Visible = false;
+            // 
+            // LastNameTextBox8
+            // 
+            LastNameTextBox8.Font = new Font("Yu Gothic UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            LastNameTextBox8.Location = new Point(299, 302);
+            LastNameTextBox8.Name = "LastNameTextBox8";
+            LastNameTextBox8.Size = new Size(192, 29);
+            LastNameTextBox8.TabIndex = 89;
+            LastNameTextBox8.Visible = false;
+            // 
+            // LastNameTextBox7
+            // 
+            LastNameTextBox7.Font = new Font("Yu Gothic UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            LastNameTextBox7.Location = new Point(299, 268);
+            LastNameTextBox7.Name = "LastNameTextBox7";
+            LastNameTextBox7.Size = new Size(192, 29);
+            LastNameTextBox7.TabIndex = 88;
+            LastNameTextBox7.Visible = false;
+            // 
+            // LastNameTextBox6
+            // 
+            LastNameTextBox6.Font = new Font("Yu Gothic UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            LastNameTextBox6.Location = new Point(299, 234);
+            LastNameTextBox6.Name = "LastNameTextBox6";
+            LastNameTextBox6.Size = new Size(192, 29);
+            LastNameTextBox6.TabIndex = 87;
+            LastNameTextBox6.Visible = false;
+            // 
+            // LastNameTextBox5
+            // 
+            LastNameTextBox5.Font = new Font("Yu Gothic UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            LastNameTextBox5.Location = new Point(299, 200);
+            LastNameTextBox5.Name = "LastNameTextBox5";
+            LastNameTextBox5.Size = new Size(192, 29);
+            LastNameTextBox5.TabIndex = 86;
+            LastNameTextBox5.Visible = false;
+            // 
+            // LastNameTextBox4
+            // 
+            LastNameTextBox4.Font = new Font("Yu Gothic UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            LastNameTextBox4.Location = new Point(299, 166);
+            LastNameTextBox4.Name = "LastNameTextBox4";
+            LastNameTextBox4.Size = new Size(192, 29);
+            LastNameTextBox4.TabIndex = 85;
+            LastNameTextBox4.Visible = false;
+            // 
+            // LastNameTextBox3
+            // 
+            LastNameTextBox3.Font = new Font("Yu Gothic UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            LastNameTextBox3.Location = new Point(299, 132);
+            LastNameTextBox3.Name = "LastNameTextBox3";
+            LastNameTextBox3.Size = new Size(192, 29);
+            LastNameTextBox3.TabIndex = 84;
+            LastNameTextBox3.Visible = false;
+            // 
+            // LastNameTextBox2
+            // 
+            LastNameTextBox2.Font = new Font("Yu Gothic UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            LastNameTextBox2.Location = new Point(299, 98);
+            LastNameTextBox2.Name = "LastNameTextBox2";
+            LastNameTextBox2.Size = new Size(192, 29);
+            LastNameTextBox2.TabIndex = 83;
+            LastNameTextBox2.Visible = false;
+            // 
+            // LastNameTextBox1
+            // 
+            LastNameTextBox1.Font = new Font("Yu Gothic UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            LastNameTextBox1.Location = new Point(299, 64);
+            LastNameTextBox1.Name = "LastNameTextBox1";
+            LastNameTextBox1.Size = new Size(192, 29);
+            LastNameTextBox1.TabIndex = 82;
+            LastNameTextBox1.Visible = false;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1243, 626);
+            Controls.Add(LastNameTextBox10);
+            Controls.Add(LastNameTextBox9);
+            Controls.Add(LastNameTextBox8);
+            Controls.Add(LastNameTextBox7);
+            Controls.Add(LastNameTextBox6);
+            Controls.Add(LastNameTextBox5);
+            Controls.Add(LastNameTextBox4);
+            Controls.Add(LastNameTextBox3);
+            Controls.Add(LastNameTextBox2);
+            Controls.Add(LastNameTextBox1);
+            Controls.Add(FirstNameTextBox10);
+            Controls.Add(FirstNameTextBox9);
+            Controls.Add(FirstNameTextBox8);
+            Controls.Add(FirstNameTextBox7);
+            Controls.Add(FirstNameTextBox6);
+            Controls.Add(FirstNameTextBox5);
+            Controls.Add(FirstNameTextBox4);
+            Controls.Add(FirstNameTextBox3);
+            Controls.Add(FirstNameTextBox2);
+            Controls.Add(FirstNameTextBox1);
             Controls.Add(CancelButton10);
             Controls.Add(CancelButton9);
             Controls.Add(CancelButton8);
@@ -1000,5 +1220,25 @@
         private Button CalculateButton3;
         private Button CalculateButton2;
         private Button CalculateButton1;
+        private TextBox FirstNameTextBox1;
+        private TextBox FirstNameTextBox2;
+        private TextBox FirstNameTextBox3;
+        private TextBox FirstNameTextBox4;
+        private TextBox FirstNameTextBox5;
+        private TextBox FirstNameTextBox6;
+        private TextBox FirstNameTextBox7;
+        private TextBox FirstNameTextBox8;
+        private TextBox FirstNameTextBox9;
+        private TextBox FirstNameTextBox10;
+        private TextBox LastNameTextBox10;
+        private TextBox LastNameTextBox9;
+        private TextBox LastNameTextBox8;
+        private TextBox LastNameTextBox7;
+        private TextBox LastNameTextBox6;
+        private TextBox LastNameTextBox5;
+        private TextBox LastNameTextBox4;
+        private TextBox LastNameTextBox3;
+        private TextBox LastNameTextBox2;
+        private TextBox LastNameTextBox1;
     }
 }
