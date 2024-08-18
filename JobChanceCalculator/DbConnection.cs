@@ -13,6 +13,14 @@ namespace JobChanceCalculator
     {
         Database database;
 
+        public delegate void PersonAddedDelegate(string message);
+        public delegate void PersonDeletedDelegate(string message);
+        public delegate void PersonUpdatedDelegate(string message);
+
+        public event PersonAddedDelegate? PersonAdded;
+        public event PersonDeletedDelegate? PersonDeleted;
+        public event PersonUpdatedDelegate? PersonUpdated;
+
         public DbConnection() 
         {
             this.database = new Database("Careerpath");
@@ -108,6 +116,48 @@ namespace JobChanceCalculator
         public void PerformNonQuery(string nonQueryStatement)
         {
             this.database.PerformNonQuery(nonQueryStatement);
+        }
+
+        public async Task DeletePerson(Person person)
+        {
+            Task deletionTask = Task.Run(() =>
+            {
+                this.PerformNonQuery($"DELETE FROM person WHERE id = {person.id}");
+                Thread.Sleep(2000);
+            });
+            await deletionTask;
+            if (this.PersonDeleted != null)
+            {
+                this.PersonDeleted($"{person.firstName} {person.lastName} deleted.");
+            }
+        }
+
+        public async Task AddPerson(string firstName, string lastName)
+        {
+            Task additionTask = Task.Run(() =>
+            {
+                this.PerformNonQuery(@$"INSERT INTO person (first_name, last_name) VALUES ('{firstName}', '{lastName}')");
+                Thread.Sleep(2000);
+            });
+            await additionTask;
+            if (PersonAdded != null)
+            {
+                this.PersonAdded($"{firstName} {lastName} added.");
+            }
+        }
+
+        public async Task UpdatePerson(Person person, string firstName, string lastName)
+        {
+            Task updateTask = Task.Run(() =>
+            {
+                this.PerformNonQuery(@$"UPDATE person (first_name, last_name) VALUES ('{firstName}', '{lastName}') WHERE id ={person.id}");
+                Thread.Sleep(2000);
+            });
+            await updateTask;
+            if (PersonUpdated != null)
+            {
+                this.PersonUpdated($"{firstName} {lastName} updated.");
+            }
         }
     }
 }

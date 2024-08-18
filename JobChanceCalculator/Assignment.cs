@@ -12,13 +12,16 @@ namespace JobChanceCalculator
 
         public delegate void PeopleAssignedDelegate(string message);
 
-        public event PeopleAssignedDelegate Assigned;
+        public event PeopleAssignedDelegate? Assigned;
 
         public async Task<List<Person>> AssignPeopleAsync()
         {
             Task<List<Person>> generatePeopleList = Task.Run(() => AssignPeople());
             await generatePeopleList;
-            this.Assigned("Data imported from database.");
+            if (this.Assigned != null)
+            {
+                this.Assigned("Read data from database and ordered list of people.");
+            }
             return generatePeopleList.Result;
 
         }

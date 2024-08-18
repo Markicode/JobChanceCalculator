@@ -70,16 +70,16 @@
             EditButton8 = new Button();
             EditButton9 = new Button();
             EditButton10 = new Button();
-            DeleteButton1 = new Button();
-            DeleteButton2 = new Button();
-            DeleteButton3 = new Button();
-            DeleteButton4 = new Button();
-            DeleteButton5 = new Button();
-            DeleteButton6 = new Button();
-            DeleteButton7 = new Button();
-            DeleteButton8 = new Button();
-            DeleteButton9 = new Button();
-            DeleteButton10 = new Button();
+            AddDeleteButton1 = new Button();
+            AddDeleteButton2 = new Button();
+            AddDeleteButton3 = new Button();
+            AddDeleteButton4 = new Button();
+            AddDeleteButton5 = new Button();
+            AddDeleteButton6 = new Button();
+            AddDeleteButton7 = new Button();
+            AddDeleteButton8 = new Button();
+            AddDeleteButton9 = new Button();
+            AddDeleteButton10 = new Button();
             CancelButton10 = new Button();
             CancelButton9 = new Button();
             CancelButton8 = new Button();
@@ -423,6 +423,7 @@
             EditButton1.TabIndex = 32;
             EditButton1.Text = "Edit";
             EditButton1.UseVisualStyleBackColor = true;
+            EditButton1.Click += EditButton1_Click;
             // 
             // EditButton2
             // 
@@ -434,6 +435,7 @@
             EditButton2.TabIndex = 33;
             EditButton2.Text = "Edit";
             EditButton2.UseVisualStyleBackColor = true;
+            EditButton2.Click += EditButton2_Click;
             // 
             // EditButton3
             // 
@@ -445,6 +447,7 @@
             EditButton3.TabIndex = 34;
             EditButton3.Text = "Edit";
             EditButton3.UseVisualStyleBackColor = true;
+            EditButton3.Click += EditButton3_Click;
             // 
             // EditButton4
             // 
@@ -456,6 +459,7 @@
             EditButton4.TabIndex = 35;
             EditButton4.Text = "Edit";
             EditButton4.UseVisualStyleBackColor = true;
+            EditButton4.Click += EditButton4_Click;
             // 
             // EditButton5
             // 
@@ -467,6 +471,7 @@
             EditButton5.TabIndex = 36;
             EditButton5.Text = "Edit";
             EditButton5.UseVisualStyleBackColor = true;
+            EditButton5.Click += EditButton5_Click;
             // 
             // EditButton6
             // 
@@ -478,6 +483,7 @@
             EditButton6.TabIndex = 37;
             EditButton6.Text = "Edit";
             EditButton6.UseVisualStyleBackColor = true;
+            EditButton6.Click += EditButton6_Click;
             // 
             // EditButton7
             // 
@@ -489,6 +495,7 @@
             EditButton7.TabIndex = 38;
             EditButton7.Text = "Edit";
             EditButton7.UseVisualStyleBackColor = true;
+            EditButton7.Click += EditButton7_Click;
             // 
             // EditButton8
             // 
@@ -500,6 +507,7 @@
             EditButton8.TabIndex = 39;
             EditButton8.Text = "Edit";
             EditButton8.UseVisualStyleBackColor = true;
+            EditButton8.Click += EditButton8_Click;
             // 
             // EditButton9
             // 
@@ -511,6 +519,7 @@
             EditButton9.TabIndex = 40;
             EditButton9.Text = "Edit";
             EditButton9.UseVisualStyleBackColor = true;
+            EditButton9.Click += EditButton9_Click;
             // 
             // EditButton10
             // 
@@ -522,126 +531,127 @@
             EditButton10.TabIndex = 41;
             EditButton10.Text = "Edit";
             EditButton10.UseVisualStyleBackColor = true;
+            EditButton10.Click += EditButton10_Click;
             // 
-            // DeleteButton1
+            // AddDeleteButton1
             // 
-            DeleteButton1.Enabled = false;
-            DeleteButton1.Font = new Font("Yu Gothic UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            DeleteButton1.Location = new Point(93, 64);
-            DeleteButton1.Name = "DeleteButton1";
-            DeleteButton1.Size = new Size(75, 28);
-            DeleteButton1.TabIndex = 42;
-            DeleteButton1.Text = "Delete";
-            DeleteButton1.UseVisualStyleBackColor = true;
-            DeleteButton1.Click += DeleteButton1_Click;
+            AddDeleteButton1.Enabled = false;
+            AddDeleteButton1.Font = new Font("Yu Gothic UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            AddDeleteButton1.Location = new Point(93, 64);
+            AddDeleteButton1.Name = "AddDeleteButton1";
+            AddDeleteButton1.Size = new Size(75, 28);
+            AddDeleteButton1.TabIndex = 42;
+            AddDeleteButton1.Text = "Delete";
+            AddDeleteButton1.UseVisualStyleBackColor = true;
+            AddDeleteButton1.Click += AddDeleteButton1_Click;
             // 
-            // DeleteButton2
+            // AddDeleteButton2
             // 
-            DeleteButton2.Enabled = false;
-            DeleteButton2.Font = new Font("Yu Gothic UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            DeleteButton2.Location = new Point(93, 98);
-            DeleteButton2.Name = "DeleteButton2";
-            DeleteButton2.Size = new Size(75, 28);
-            DeleteButton2.TabIndex = 43;
-            DeleteButton2.Text = "Delete";
-            DeleteButton2.UseVisualStyleBackColor = true;
-            DeleteButton2.Click += DeleteButton2_Click;
+            AddDeleteButton2.Enabled = false;
+            AddDeleteButton2.Font = new Font("Yu Gothic UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            AddDeleteButton2.Location = new Point(93, 98);
+            AddDeleteButton2.Name = "AddDeleteButton2";
+            AddDeleteButton2.Size = new Size(75, 28);
+            AddDeleteButton2.TabIndex = 43;
+            AddDeleteButton2.Text = "Delete";
+            AddDeleteButton2.UseVisualStyleBackColor = true;
+            AddDeleteButton2.Click += AddDeleteButton2_Click;
             // 
-            // DeleteButton3
+            // AddDeleteButton3
             // 
-            DeleteButton3.Enabled = false;
-            DeleteButton3.Font = new Font("Yu Gothic UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            DeleteButton3.Location = new Point(93, 132);
-            DeleteButton3.Name = "DeleteButton3";
-            DeleteButton3.Size = new Size(75, 28);
-            DeleteButton3.TabIndex = 44;
-            DeleteButton3.Text = "Delete";
-            DeleteButton3.UseVisualStyleBackColor = true;
-            DeleteButton3.Click += DeleteButton3_Click;
+            AddDeleteButton3.Enabled = false;
+            AddDeleteButton3.Font = new Font("Yu Gothic UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            AddDeleteButton3.Location = new Point(93, 132);
+            AddDeleteButton3.Name = "AddDeleteButton3";
+            AddDeleteButton3.Size = new Size(75, 28);
+            AddDeleteButton3.TabIndex = 44;
+            AddDeleteButton3.Text = "Delete";
+            AddDeleteButton3.UseVisualStyleBackColor = true;
+            AddDeleteButton3.Click += AddDeleteButton3_Click;
             // 
-            // DeleteButton4
+            // AddDeleteButton4
             // 
-            DeleteButton4.Enabled = false;
-            DeleteButton4.Font = new Font("Yu Gothic UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            DeleteButton4.Location = new Point(93, 166);
-            DeleteButton4.Name = "DeleteButton4";
-            DeleteButton4.Size = new Size(75, 28);
-            DeleteButton4.TabIndex = 45;
-            DeleteButton4.Text = "Delete";
-            DeleteButton4.UseVisualStyleBackColor = true;
-            DeleteButton4.Click += DeleteButton4_Click;
+            AddDeleteButton4.Enabled = false;
+            AddDeleteButton4.Font = new Font("Yu Gothic UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            AddDeleteButton4.Location = new Point(93, 166);
+            AddDeleteButton4.Name = "AddDeleteButton4";
+            AddDeleteButton4.Size = new Size(75, 28);
+            AddDeleteButton4.TabIndex = 45;
+            AddDeleteButton4.Text = "Delete";
+            AddDeleteButton4.UseVisualStyleBackColor = true;
+            AddDeleteButton4.Click += AddDeleteButton4_Click;
             // 
-            // DeleteButton5
+            // AddDeleteButton5
             // 
-            DeleteButton5.Enabled = false;
-            DeleteButton5.Font = new Font("Yu Gothic UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            DeleteButton5.Location = new Point(93, 200);
-            DeleteButton5.Name = "DeleteButton5";
-            DeleteButton5.Size = new Size(75, 28);
-            DeleteButton5.TabIndex = 46;
-            DeleteButton5.Text = "Delete";
-            DeleteButton5.UseVisualStyleBackColor = true;
-            DeleteButton5.Click += DeleteButton5_Click;
+            AddDeleteButton5.Enabled = false;
+            AddDeleteButton5.Font = new Font("Yu Gothic UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            AddDeleteButton5.Location = new Point(93, 200);
+            AddDeleteButton5.Name = "AddDeleteButton5";
+            AddDeleteButton5.Size = new Size(75, 28);
+            AddDeleteButton5.TabIndex = 46;
+            AddDeleteButton5.Text = "Delete";
+            AddDeleteButton5.UseVisualStyleBackColor = true;
+            AddDeleteButton5.Click += AddDeleteButton5_Click;
             // 
-            // DeleteButton6
+            // AddDeleteButton6
             // 
-            DeleteButton6.Enabled = false;
-            DeleteButton6.Font = new Font("Yu Gothic UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            DeleteButton6.Location = new Point(93, 234);
-            DeleteButton6.Name = "DeleteButton6";
-            DeleteButton6.Size = new Size(75, 28);
-            DeleteButton6.TabIndex = 47;
-            DeleteButton6.Text = "Delete";
-            DeleteButton6.UseVisualStyleBackColor = true;
-            DeleteButton6.Click += DeleteButton6_Click;
+            AddDeleteButton6.Enabled = false;
+            AddDeleteButton6.Font = new Font("Yu Gothic UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            AddDeleteButton6.Location = new Point(93, 234);
+            AddDeleteButton6.Name = "AddDeleteButton6";
+            AddDeleteButton6.Size = new Size(75, 28);
+            AddDeleteButton6.TabIndex = 47;
+            AddDeleteButton6.Text = "Delete";
+            AddDeleteButton6.UseVisualStyleBackColor = true;
+            AddDeleteButton6.Click += AddDeleteButton6_Click;
             // 
-            // DeleteButton7
+            // AddDeleteButton7
             // 
-            DeleteButton7.Enabled = false;
-            DeleteButton7.Font = new Font("Yu Gothic UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            DeleteButton7.Location = new Point(93, 268);
-            DeleteButton7.Name = "DeleteButton7";
-            DeleteButton7.Size = new Size(75, 28);
-            DeleteButton7.TabIndex = 48;
-            DeleteButton7.Text = "Delete";
-            DeleteButton7.UseVisualStyleBackColor = true;
-            DeleteButton7.Click += DeleteButton7_Click;
+            AddDeleteButton7.Enabled = false;
+            AddDeleteButton7.Font = new Font("Yu Gothic UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            AddDeleteButton7.Location = new Point(93, 268);
+            AddDeleteButton7.Name = "AddDeleteButton7";
+            AddDeleteButton7.Size = new Size(75, 28);
+            AddDeleteButton7.TabIndex = 48;
+            AddDeleteButton7.Text = "Delete";
+            AddDeleteButton7.UseVisualStyleBackColor = true;
+            AddDeleteButton7.Click += AddDeleteButton7_Click;
             // 
-            // DeleteButton8
+            // AddDeleteButton8
             // 
-            DeleteButton8.Enabled = false;
-            DeleteButton8.Font = new Font("Yu Gothic UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            DeleteButton8.Location = new Point(93, 302);
-            DeleteButton8.Name = "DeleteButton8";
-            DeleteButton8.Size = new Size(75, 28);
-            DeleteButton8.TabIndex = 49;
-            DeleteButton8.Text = "Delete";
-            DeleteButton8.UseVisualStyleBackColor = true;
-            DeleteButton8.Click += DeleteButton8_Click;
+            AddDeleteButton8.Enabled = false;
+            AddDeleteButton8.Font = new Font("Yu Gothic UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            AddDeleteButton8.Location = new Point(93, 302);
+            AddDeleteButton8.Name = "AddDeleteButton8";
+            AddDeleteButton8.Size = new Size(75, 28);
+            AddDeleteButton8.TabIndex = 49;
+            AddDeleteButton8.Text = "Delete";
+            AddDeleteButton8.UseVisualStyleBackColor = true;
+            AddDeleteButton8.Click += AddDeleteButton8_Click;
             // 
-            // DeleteButton9
+            // AddDeleteButton9
             // 
-            DeleteButton9.Enabled = false;
-            DeleteButton9.Font = new Font("Yu Gothic UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            DeleteButton9.Location = new Point(93, 336);
-            DeleteButton9.Name = "DeleteButton9";
-            DeleteButton9.Size = new Size(75, 28);
-            DeleteButton9.TabIndex = 50;
-            DeleteButton9.Text = "Delete";
-            DeleteButton9.UseVisualStyleBackColor = true;
-            DeleteButton9.Click += DeleteButton9_Click;
+            AddDeleteButton9.Enabled = false;
+            AddDeleteButton9.Font = new Font("Yu Gothic UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            AddDeleteButton9.Location = new Point(93, 336);
+            AddDeleteButton9.Name = "AddDeleteButton9";
+            AddDeleteButton9.Size = new Size(75, 28);
+            AddDeleteButton9.TabIndex = 50;
+            AddDeleteButton9.Text = "Delete";
+            AddDeleteButton9.UseVisualStyleBackColor = true;
+            AddDeleteButton9.Click += AddDeleteButton9_Click;
             // 
-            // DeleteButton10
+            // AddDeleteButton10
             // 
-            DeleteButton10.Enabled = false;
-            DeleteButton10.Font = new Font("Yu Gothic UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            DeleteButton10.Location = new Point(93, 370);
-            DeleteButton10.Name = "DeleteButton10";
-            DeleteButton10.Size = new Size(75, 28);
-            DeleteButton10.TabIndex = 51;
-            DeleteButton10.Text = "Delete";
-            DeleteButton10.UseVisualStyleBackColor = true;
-            DeleteButton10.Click += DeleteButton10_Click;
+            AddDeleteButton10.Enabled = false;
+            AddDeleteButton10.Font = new Font("Yu Gothic UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            AddDeleteButton10.Location = new Point(93, 370);
+            AddDeleteButton10.Name = "AddDeleteButton10";
+            AddDeleteButton10.Size = new Size(75, 28);
+            AddDeleteButton10.TabIndex = 51;
+            AddDeleteButton10.Text = "Delete";
+            AddDeleteButton10.UseVisualStyleBackColor = true;
+            AddDeleteButton10.Click += AddDeleteButton10_Click;
             // 
             // CancelButton10
             // 
@@ -1088,16 +1098,16 @@
             Controls.Add(CalculateButton3);
             Controls.Add(CalculateButton2);
             Controls.Add(CalculateButton1);
-            Controls.Add(DeleteButton10);
-            Controls.Add(DeleteButton9);
-            Controls.Add(DeleteButton8);
-            Controls.Add(DeleteButton7);
-            Controls.Add(DeleteButton6);
-            Controls.Add(DeleteButton5);
-            Controls.Add(DeleteButton4);
-            Controls.Add(DeleteButton3);
-            Controls.Add(DeleteButton2);
-            Controls.Add(DeleteButton1);
+            Controls.Add(AddDeleteButton10);
+            Controls.Add(AddDeleteButton9);
+            Controls.Add(AddDeleteButton8);
+            Controls.Add(AddDeleteButton7);
+            Controls.Add(AddDeleteButton6);
+            Controls.Add(AddDeleteButton5);
+            Controls.Add(AddDeleteButton4);
+            Controls.Add(AddDeleteButton3);
+            Controls.Add(AddDeleteButton2);
+            Controls.Add(AddDeleteButton1);
             Controls.Add(EditButton10);
             Controls.Add(EditButton9);
             Controls.Add(EditButton8);
@@ -1190,16 +1200,16 @@
         private Button EditButton8;
         private Button EditButton9;
         private Button EditButton10;
-        private Button DeleteButton1;
-        private Button DeleteButton2;
-        private Button DeleteButton3;
-        private Button DeleteButton4;
-        private Button DeleteButton5;
-        private Button DeleteButton6;
-        private Button DeleteButton7;
-        private Button DeleteButton8;
-        private Button DeleteButton9;
-        private Button DeleteButton10;
+        private Button AddDeleteButton1;
+        private Button AddDeleteButton2;
+        private Button AddDeleteButton3;
+        private Button AddDeleteButton4;
+        private Button AddDeleteButton5;
+        private Button AddDeleteButton6;
+        private Button AddDeleteButton7;
+        private Button AddDeleteButton8;
+        private Button AddDeleteButton9;
+        private Button AddDeleteButton10;
         private Button CancelButton10;
         private Button CancelButton9;
         private Button CancelButton8;

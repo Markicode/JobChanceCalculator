@@ -39,22 +39,6 @@ namespace JobChanceCalculator
             return jobChance;
         }
 
-        public static async Task DeletePerson(Person person)
-        {
-            Task deletionTask = Task.Run(() =>
-            {
-                DbConn.PerformNonQuery($"DELETE FROM person WHERE id = {person.id}");
-            });
-            await deletionTask;
-        }
-
-        public static async Task AddPerson(string firstName, string lastName)
-        {
-            Task additionTask = Task.Run(() =>
-            {
-                DbConn.PerformNonQuery(@$"INSERT INTO person (first_name, last_name) VALUES ('{firstName}', '{lastName}')");
-            });
-            await additionTask;
-        }
+        
     }
 }
