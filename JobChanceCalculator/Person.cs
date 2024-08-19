@@ -14,6 +14,10 @@ namespace JobChanceCalculator
         public string lastName { get; set; }
         public double graduateChance { get; set; }
         public double jobChance {  get; set; }
+        public double factor { get; set; }
+        public string graduate {  get; set; }
+        public string job { get; set; }
+
         private static DbConnection DbConn = new DbConnection();
 
         public Person(int id, string firstName, string lastName) 
@@ -21,24 +25,46 @@ namespace JobChanceCalculator
             this.id = id;
             this.firstName = firstName;
             this.lastName = lastName;
+            this.factor = 0;
         }
 
-        public double calculateGraduateChance()
+        public void CalculateChances()
         {
-            Random random = new Random();
-            double graduateChance = random.NextDouble();
-            this.graduateChance = graduateChance;
-            return graduateChance;
-        }
+            List<string> educations = DbConn.GetEducations();
+            List<string> professions = DbConn.GetProfessions();
+            double currentFactor;
 
-        public double calculateJobChance() 
-        {
             Random random = new Random();
-            double jobChance = random.NextDouble();
-            this.jobChance = jobChance;
-            return jobChance;
-        }
 
-        
+            for (int i = 0; i < 10; i++)
+            {
+                int sleep1 = random.Next(10, 15);
+                for (int j = 0; j < sleep1; j++)
+                {
+                    Thread.Sleep(1);
+                }
+                double graduationChance = random.NextDouble();
+
+                int sleep2 = random.Next(10, 15);
+                for (int j = 0; j < sleep2; j++)
+                {
+                    Thread.Sleep(1);
+                }
+                double professionChance = random.NextDouble();
+                currentFactor = graduationChance * professionChance;
+
+                if(currentFactor > this.factor)
+                {
+                    this.factor = currentFactor;
+                    this.graduateChance = graduationChance;
+                    this.jobChance = professionChance;
+                    this.graduate = educations[i];
+                    this.job = professions[i];
+                }
+
+
+
+            }
+        }
     }
 }

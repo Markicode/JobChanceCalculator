@@ -10,55 +10,55 @@ namespace JobChanceCalculator
     {
         private async void AddDeleteButton1_Click(object sender, EventArgs e)
         {
-            await HandleAddDelete(0, sender);
+            await HandleAddDelete(0);
         }
 
         private async void AddDeleteButton2_Click(object sender, EventArgs e)
         {
-            await HandleAddDelete(1, sender);
+            await HandleAddDelete(1);
         }
 
         private async void AddDeleteButton3_Click(object sender, EventArgs e)
         {
-            await HandleAddDelete(2, sender);
+            await HandleAddDelete(2);
         }
 
         private async void AddDeleteButton4_Click(object sender, EventArgs e)
         {
-            await HandleAddDelete(3, sender);
+            await HandleAddDelete(3);
         }
 
         private async void AddDeleteButton5_Click(object sender, EventArgs e)
         {
-            await HandleAddDelete(4, sender);
+            await HandleAddDelete(4);
         }
 
         private async void AddDeleteButton6_Click(object sender, EventArgs e)
         {
-            await HandleAddDelete(5, sender);
+            await HandleAddDelete(5);
         }
 
         private async void AddDeleteButton7_Click(object sender, EventArgs e)
         {
-            await HandleAddDelete(6, sender);
+            await HandleAddDelete(6);
         }
 
         private async void AddDeleteButton8_Click(object sender, EventArgs e)
         {
-            await HandleAddDelete(7, sender);
+            await HandleAddDelete(7);
         }
 
         private async void AddDeleteButton9_Click(object sender, EventArgs e)
         {
-            await HandleAddDelete(8, sender);
+            await HandleAddDelete(8);
         }
 
         private async void AddDeleteButton10_Click(object sender, EventArgs e)
         {
-            await HandleAddDelete(9, sender);
+            await HandleAddDelete(9);
         }
 
-        private async Task HandleAddDelete(int position, object sender)
+        private async Task HandleAddDelete(int position)
         {
             if (peopleArray[position] != null)
             {
@@ -66,7 +66,6 @@ namespace JobChanceCalculator
                 addDeleteButtons[position].Enabled = false;
                 editButtons[position].Enabled = false;
                 Person currentPerson = peopleArray[position];
-                //peopleList.Remove((Person p) => { p.Id == currentPerson.id; });
                 await dbConn.DeletePerson(peopleArray[position]);
                 peopleArray[position] = null;
                 addDeleteButtons[position].Text = "Add";
@@ -82,7 +81,7 @@ namespace JobChanceCalculator
                 {
                     addDeleteButtons[position].Enabled = false;
                     await dbConn.AddPerson(firstNameTextBoxes[position].Text, lastNameTextBoxes[position].Text);
-                    Person personAdded = await dbConn.FindPerson();
+                    Person personAdded = await dbConn.FindAddedPerson();
                     if (personAdded != null)
                     {
                         peopleArray[position] = personAdded;
@@ -102,55 +101,97 @@ namespace JobChanceCalculator
             }
         }
 
-        private void EditButton1_Click(object sender, EventArgs e)
+        private async void EditSubmitButton1_Click(object sender, EventArgs e)
         {
-
+            await HandleEdit(0);
         }
 
-        private void EditButton2_Click(object sender, EventArgs e)
+        private async void EditSubmitButton2_Click(object sender, EventArgs e)
         {
-
+            await HandleEdit(1);
         }
 
-        private void EditButton3_Click(object sender, EventArgs e)
+        private async void EditSubmitButton3_Click(object sender, EventArgs e)
         {
-
+            await HandleEdit(2);
         }
 
-        private void EditButton4_Click(object sender, EventArgs e)
+        private async void EditSubmitButton4_Click(object sender, EventArgs e)
         {
-
+            await HandleEdit(3);
         }
 
-        private void EditButton5_Click(object sender, EventArgs e)
+        private async void EditSubmitButton5_Click(object sender, EventArgs e)
         {
-
+            await HandleEdit(4);
         }
 
-        private void EditButton6_Click(object sender, EventArgs e)
+        private async void EditSubmitButton6_Click(object sender, EventArgs e)
         {
-
+            await HandleEdit(5);
         }
 
-        private void EditButton7_Click(object sender, EventArgs e)
+        private async void EditSubmitButton7_Click(object sender, EventArgs e)
         {
-
+            await HandleEdit(6);
         }
 
-        private void EditButton8_Click(object sender, EventArgs e)
+        private async void EditSubmitButton8_Click(object sender, EventArgs e)
         {
-
+            await HandleEdit(7);
         }
 
-        private void EditButton9_Click(object sender, EventArgs e)
+        private async void EditSubmitButton9_Click(object sender, EventArgs e)
         {
-
+            await HandleEdit(8);
         }
 
-        private void EditButton10_Click(object sender, EventArgs e)
+        private async void EditSubmitButton10_Click(object sender, EventArgs e)
         {
-
+            await HandleEdit(9);
         }
 
-    }
+        private async Task HandleEdit(int position)
+        {
+            if (editButtons[position].Text == "Edit")
+            {
+                firstNameTextBoxes[position].Text = peopleArray[position].firstName;
+                lastNameTextBoxes[position].Text = peopleArray[position].lastName;
+                addDeleteButtons[position].Enabled = false;
+                calculateButtons[position].Enabled = false;
+                editButtons[position].Text = "Submit";
+                firstNameLabels[position].Visible = false;
+                lastNameLabels[position].Visible = false;
+                firstNameTextBoxes[position].Visible = true;
+                lastNameTextBoxes[position].Visible = true;
+                return;
+            }
+            if(editButtons[position].Text == "Submit")
+            {
+                if(this.validateInput(position))
+                {
+                    firstNameTextBoxes[position].Enabled = false;
+                    lastNameTextBoxes[position].Enabled = false;
+                    editButtons[position].Enabled = false;
+                    await dbConn.UpdatePerson(peopleArray[position], firstNameTextBoxes[position].Text, lastNameTextBoxes[position].Text);
+                    peopleArray[position].firstName = firstNameTextBoxes[position].Text;
+                    peopleArray[position].lastName = lastNameTextBoxes[position].Text;
+                    editButtons[position].Text = "Edit";
+                    editButtons[position].Enabled = true;
+                    firstNameLabels[position].Text = peopleArray[position].firstName;
+                    lastNameLabels[position].Text = peopleArray[position].lastName;
+                    addDeleteButtons[position].Enabled = true;
+                    calculateButtons[position].Enabled = true;
+                    firstNameLabels[position].Visible = true;
+                    lastNameLabels[position].Visible = true;
+                    firstNameTextBoxes[position].Visible = false;
+                    lastNameTextBoxes[position].Visible = false;
+                    firstNameTextBoxes[position].Enabled = true;
+                    lastNameTextBoxes[position].Enabled = true;
+                }
+                return;
+            }
+        }
+
+     }
 }

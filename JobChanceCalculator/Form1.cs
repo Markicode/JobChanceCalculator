@@ -5,6 +5,9 @@ namespace JobChanceCalculator
         DbConnection dbConn;
         List<Label> firstNameLabels;
         List<Label> lastNameLabels;
+        List<Label> graduationLabels;
+        List<Label> jobLabels;
+        List<Label> factorLabels;
         List<Button> editButtons;
         List<Button> addDeleteButtons;
         List<Button> calculateButtons;
@@ -26,14 +29,19 @@ namespace JobChanceCalculator
             dbConn.PersonUpdated += AddLogMessage;
 
             this.peopleList = new List<Person>();
-            this.peopleArray = new Person?[10]; 
+            this.peopleArray = new Person?[10];
 
             this.firstNameLabels = new List<Label>() {FirstNameLabel1, FirstNameLabel2, FirstNameLabel3, FirstNameLabel4, FirstNameLabel5, FirstNameLabel6,
             FirstNameLabel7, FirstNameLabel8, FirstNameLabel9, FirstNameLabel10};
             this.lastNameLabels = new List<Label>() {LastNameLabel1, LastNameLabel2, LastNameLabel3, LastNameLabel4, LastNameLabel5, LastNameLabel6,
             LastNameLabel7, LastNameLabel8, LastNameLabel9, LastNameLabel10};
-            this.editButtons = new List<Button>() {EditButton1, EditButton2, EditButton3, EditButton4, EditButton5, EditButton6, EditButton7,
-            EditButton8, EditButton9, EditButton10};
+            this.graduationLabels = new List<Label>() { GraduationLabel1, GraduationLabel2, GraduationLabel3, GraduationLabel4, GraduationLabel5, GraduationLabel6,
+            GraduationLabel7, GraduationLabel8, GraduationLabel9, GraduationLabel10 };
+            this.jobLabels = new List<Label>() { JobLabel1, JobLabel2, JobLabel3, JobLabel4, JobLabel5, JobLabel6, JobLabel7, JobLabel8, JobLabel9, JobLabel10 };
+            this.factorLabels = new List<Label> { FactorLabel1, FactorLabel2, FactorLabel3, FactorLabel4, FactorLabel5, FactorLabel6, FactorLabel7, FactorLabel8,
+            FactorLabel9, FactorLabel10};
+            this.editButtons = new List<Button>() {EditSubmitButton1, EditSubmitButton2, EditSubmitButton3, EditSubmitButton4, EditSubmitButton5, EditSubmitButton6, EditSubmitButton7,
+            EditSubmitButton8, EditSubmitButton9, EditSubmitButton10};
             this.addDeleteButtons = new List<Button>() { AddDeleteButton1, AddDeleteButton2, AddDeleteButton3, AddDeleteButton4, AddDeleteButton5, AddDeleteButton6,
             AddDeleteButton7, AddDeleteButton8, AddDeleteButton9, AddDeleteButton10};
             this.calculateButtons = new List<Button>() { CalculateButton1, CalculateButton2, CalculateButton3, CalculateButton4, CalculateButton5, CalculateButton6,
@@ -49,6 +57,9 @@ namespace JobChanceCalculator
             {
                 firstNameLabels[i].Text = "";
                 lastNameLabels[i].Text = "";
+                graduationLabels[i].Text = "";
+                jobLabels[i].Text = "";
+                factorLabels[i].Text = "";
             }
 
 
@@ -139,6 +150,67 @@ namespace JobChanceCalculator
             {
                 return true;
             }
+        }
+
+        private async void CalculateButton1_Click(object sender, EventArgs e)
+        {
+            await HandleCalculation(0);
+        }
+
+        private async void CalculateButton2_Click(object sender, EventArgs e)
+        {
+            await HandleCalculation(1);
+        }
+
+        private async void CalculateButton3_Click(object sender, EventArgs e)
+        {
+            await HandleCalculation(2);
+        }
+
+        private async void CalculateButton4_Click(object sender, EventArgs e)
+        {
+            await HandleCalculation(3);
+        }
+
+        private async void CalculateButton5_Click(object sender, EventArgs e)
+        {
+            await HandleCalculation(4);
+        }
+
+        private async void CalculateButton6_Click(object sender, EventArgs e)
+        {
+            await HandleCalculation(5);
+        }
+
+        private async void CalculateButton7_Click(object sender, EventArgs e)
+        {
+            await HandleCalculation(6);
+        }
+
+        private async void CalculateButton8_Click(object sender, EventArgs e)
+        {
+            await HandleCalculation(7);
+        }
+
+        private async void CalculateButton9_Click(object sender, EventArgs e)
+        {
+            await HandleCalculation(8);
+        }
+
+        private async void CalculateButton10_Click(object sender, EventArgs e)
+        {
+            await HandleCalculation(9);
+        }
+
+
+        private async Task HandleCalculation(int position)
+        {
+            Person selectedPerson = peopleArray[position];
+            Task calculationTask = Task.Run(() => selectedPerson.CalculateChances());
+            await calculationTask;
+            graduationLabels[position].Text = $"{selectedPerson.graduate} ({(selectedPerson.graduateChance * 100).ToString()} %))";
+            jobLabels[position].Text = $"{selectedPerson.job} ({(selectedPerson.jobChance * 100).ToString()} %))";
+            factorLabels[position].Text = $"{(selectedPerson.factor * 100).ToString()} %";
         }
     }
 }

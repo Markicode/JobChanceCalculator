@@ -77,32 +77,32 @@ namespace JobChanceCalculator
                 {
                     database.PerformNonQuery(@"
                 INSERT INTO education (education_name) VALUES
-                ('Robert'),
-                ('Petra'),
-                ('Koen'),
-                ('Wilma'),
-                ('Vera'),
-                ('Teun'),
-                ('Yvonne'),
-                ('Mike'),
-                ('Rosa'),
-                ('Ferry')");
+                ('Science'),
+                ('Medicine'),
+                ('Construction'),
+                ('Astronomy'),
+                ('Cosmetics'),
+                ('Sports'),
+                ('Engineering'),
+                ('Computer Science'),
+                ('Retail'),
+                ('Teaching')");
                 }
                 testList = database.PerformQuery(@"SELECT * FROM profession");
                 if (testList.Count == 0)
                 {
                     database.PerformNonQuery(@"
                 INSERT INTO profession (profession_name) VALUES
-                ('Robert'),
-                ('Petra'),
-                ('Koen'),
-                ('Wilma'),
-                ('Vera'),
-                ('Teun'),
-                ('Yvonne'),
-                ('Mike'),
-                ('Rosa'),
-                ('Ferry')");
+                ('Scientist'),
+                ('Doctor'),
+                ('Carpenter'),
+                ('Astronomist'),
+                ('Beauty Expert'),
+                ('Coach'),
+                ('Architect'),
+                ('Data Analist'),
+                ('Salesman'),
+                ('Teacher')");
                 }
             });
             return t;
@@ -151,7 +151,7 @@ namespace JobChanceCalculator
         {
             Task updateTask = Task.Run(() =>
             {
-                this.PerformNonQuery(@$"UPDATE person (first_name, last_name) VALUES ('{firstName}', '{lastName}') WHERE id ={person.id}");
+                this.PerformNonQuery(@$"UPDATE person SET first_name = '{firstName}', last_name = '{lastName}' WHERE id = {person.id}");
                 Thread.Sleep(2000);
             });
             await updateTask;
@@ -161,14 +161,22 @@ namespace JobChanceCalculator
             }
         }
 
-        public async Task<Person> FindPerson()
+        public async Task<Person> FindAddedPerson()
         {
             Person person = null;
             Task<Person?> retrievePersonTask = Task.Run(() => RetrievePerson(RetrieveLatestEntry())
             );
             person = await retrievePersonTask;
             return person;
-            
+        }
+
+        public async Task<Person> FindPerson(int id)
+        {
+            Person person = null;
+            Task<Person?> retrievePersonTask = Task.Run(() => RetrievePerson(id)
+            );
+            person = await retrievePersonTask;
+            return person;
         }
 
         public Person? RetrievePerson(int id)
@@ -192,6 +200,28 @@ namespace JobChanceCalculator
             List<object> value = result[0] as List<object>;
             int id = Convert.ToInt32(value[0]);
             return id;
+        }
+
+        public List<string> GetEducations()
+        {
+            List<string> educations = new List<string>();
+            List<object> results = this.PerformQuery("SELECT * FROM education");
+            foreach (List<object> result in results)
+            {
+                educations.Add(result[1].ToString());
+            }
+            return educations;
+        }
+
+        public List<string> GetProfessions()
+        {
+            List<string> professions = new List<string>();
+            List<object> results = this.PerformQuery("SELECT * FROM profession");
+            foreach (List<object> result in results)
+            {
+                professions.Add(result[1].ToString());
+            }
+            return professions;
         }
     }
 }
