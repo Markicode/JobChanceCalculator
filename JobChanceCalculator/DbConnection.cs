@@ -134,6 +134,7 @@ namespace JobChanceCalculator
 
         public async Task AddPerson(string firstName, string lastName)
         {
+            Person personAdded;
             Task additionTask = Task.Run(() =>
             {
                 this.PerformNonQuery(@$"INSERT INTO person (first_name, last_name) VALUES ('{firstName}', '{lastName}')");
@@ -158,6 +159,39 @@ namespace JobChanceCalculator
             {
                 this.PersonUpdated($"{firstName} {lastName} updated.");
             }
+        }
+
+        public async Task<Person> FindPerson()
+        {
+            Person person = null;
+            Task<Person?> retrievePersonTask = Task.Run(() => RetrievePerson(RetrieveLatestEntry())
+            );
+            person = await retrievePersonTask;
+            return person;
+            
+        }
+
+        public Person? RetrievePerson(int id)
+        {
+            List<object> result = this.PerformQuery(@$"SELECT * FROM person WHERE id='{id}'");
+            if (result.Count() > 0)
+            {
+                    List<object> valueList = result[0] as List<object>;
+                    Person person = new Person(Convert.ToInt32(valueList[0]), valueList[1].ToString(), valueList[2].ToString());
+                    return person;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public int RetrieveLatestEntry()
+        {
+            List<object> result = this.PerformQuery(@"SELECT last_insert_rowid() FROM person");
+            List<object> value = result[0] as List<object>;
+            int id = Convert.ToInt32(value[0]);
+            return id;
         }
     }
 }

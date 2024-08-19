@@ -6,12 +6,13 @@ namespace JobChanceCalculator
         List<Label> firstNameLabels;
         List<Label> lastNameLabels;
         List<Button> editButtons;
-        List<Button> deleteButtons;
+        List<Button> addDeleteButtons;
         List<Button> calculateButtons;
         List<Button> cancelButtons;
         List<TextBox> firstNameTextBoxes;
         List<TextBox> lastNameTextBoxes;
         List<Person> peopleList;
+        Person?[] peopleArray;
         Assignment assignment;
 
         public Form1()
@@ -25,13 +26,15 @@ namespace JobChanceCalculator
             dbConn.PersonUpdated += AddLogMessage;
 
             this.peopleList = new List<Person>();
+            this.peopleArray = new Person?[10]; 
+
             this.firstNameLabels = new List<Label>() {FirstNameLabel1, FirstNameLabel2, FirstNameLabel3, FirstNameLabel4, FirstNameLabel5, FirstNameLabel6,
             FirstNameLabel7, FirstNameLabel8, FirstNameLabel9, FirstNameLabel10};
             this.lastNameLabels = new List<Label>() {LastNameLabel1, LastNameLabel2, LastNameLabel3, LastNameLabel4, LastNameLabel5, LastNameLabel6,
             LastNameLabel7, LastNameLabel8, LastNameLabel9, LastNameLabel10};
             this.editButtons = new List<Button>() {EditButton1, EditButton2, EditButton3, EditButton4, EditButton5, EditButton6, EditButton7,
             EditButton8, EditButton9, EditButton10};
-            this.deleteButtons = new List<Button>() { AddDeleteButton1, AddDeleteButton2, AddDeleteButton3, AddDeleteButton4, AddDeleteButton5, AddDeleteButton6,
+            this.addDeleteButtons = new List<Button>() { AddDeleteButton1, AddDeleteButton2, AddDeleteButton3, AddDeleteButton4, AddDeleteButton5, AddDeleteButton6,
             AddDeleteButton7, AddDeleteButton8, AddDeleteButton9, AddDeleteButton10};
             this.calculateButtons = new List<Button>() { CalculateButton1, CalculateButton2, CalculateButton3, CalculateButton4, CalculateButton5, CalculateButton6,
             CalculateButton7, CalculateButton8, CalculateButton9, CalculateButton10};
@@ -71,22 +74,24 @@ namespace JobChanceCalculator
 
             for (int i = 0; i < peopleList.Count; i++)
             {
+                peopleArray[i] = peopleList[i];
                 firstNameLabels[i].Text = peopleList[i].firstName;
                 lastNameLabels[i].Text = peopleList[i].lastName;
                 editButtons[i].Enabled = true;
-                deleteButtons[i].Enabled = true;
+                addDeleteButtons[i].Enabled = true;
                 calculateButtons[i].Enabled = true;
             }
             for (int i = peopleList.Count; i < 10; i++)
             {
-                deleteButtons[i].Text = "Add";
-                deleteButtons[i].Enabled = true;
+                addDeleteButtons[i].Text = "Add";
+                addDeleteButtons[i].Enabled = true;
                 firstNameTextBoxes[i].Visible = true;
                 lastNameTextBoxes[i].Visible = true;
+                calculateButtons[i].Enabled = false;
             }
         }
 
-        private async Task ReAssign()
+        /**private async Task ReAssign()
         {
             for (int i = 0; i < 10; i++)
             {
@@ -119,12 +124,12 @@ namespace JobChanceCalculator
                 firstNameTextBoxes[i].Visible = true;
                 lastNameTextBoxes[i].Visible = true;
             }
-        }
+        }**/
 
         private bool validateInput(int textBoxNumber)
         {
-            string firstName = firstNameTextBoxes[textBoxNumber - 1].Text;
-            string lastName = lastNameTextBoxes[textBoxNumber - 1].Text;
+            string firstName = firstNameTextBoxes[textBoxNumber].Text;
+            string lastName = lastNameTextBoxes[textBoxNumber].Text;
             if (firstName == "" || lastName == "")
             {
                 MessageBox.Show("Enter a first and a last name.");
