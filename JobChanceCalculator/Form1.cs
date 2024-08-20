@@ -14,22 +14,73 @@ namespace JobChanceCalculator
         List<Button> cancelButtons;
         List<TextBox> firstNameTextBoxes;
         List<TextBox> lastNameTextBoxes;
+        List<ProgressBar> progressBars;
         List<Person> peopleList;
+        List<Progress<int>> progresses;
         Person?[] peopleArray;
         Assignment assignment;
+        int numberOfCalculations;
+        int mainProgress;
 
         public Form1()
         {
             InitializeComponent();
             this.dbConn = new DbConnection();
             this.assignment = new Assignment();
+
             assignment.Assigned += AddLogMessage;
             dbConn.PersonAdded += AddLogMessage;
             dbConn.PersonDeleted += AddLogMessage;
             dbConn.PersonUpdated += AddLogMessage;
-
+            
             this.peopleList = new List<Person>();
             this.peopleArray = new Person?[10];
+
+            Progress<int> progress1 = new Progress<int>(percent =>
+            {
+                ProgressBar1.Value = percent;
+            });
+            Progress<int> progress2 = new Progress<int>(percent =>
+            {
+                ProgressBar2.Value = percent;
+            });
+            Progress<int> progress3 = new Progress<int>(percent =>
+            {
+                ProgressBar3.Value = percent;
+            });
+            Progress<int> progress4 = new Progress<int>(percent =>
+            {
+                ProgressBar4.Value = percent;
+            });
+            Progress<int> progress5 = new Progress<int>(percent =>
+            {
+                ProgressBar5.Value = percent;
+            });
+            Progress<int> progress6 = new Progress<int>(percent =>
+            {
+                ProgressBar6.Value = percent;
+            });
+            Progress<int> progress7 = new Progress<int>(percent =>
+            {
+                ProgressBar7.Value = percent;
+            });
+            Progress<int> progress8 = new Progress<int>(percent =>
+            {
+                ProgressBar8.Value = percent;
+            });
+            Progress<int> progress9 = new Progress<int>(percent =>
+            {
+                ProgressBar9.Value = percent;
+            });
+            Progress<int> progress10 = new Progress<int>(percent =>
+            {
+                ProgressBar10.Value = percent;
+            });
+            Progress<int> progressMain = new Progress<int>(percent =>
+            {
+                MainProgressBar.Value = percent;
+            });
+
 
             this.firstNameLabels = new List<Label>() {FirstNameLabel1, FirstNameLabel2, FirstNameLabel3, FirstNameLabel4, FirstNameLabel5, FirstNameLabel6,
             FirstNameLabel7, FirstNameLabel8, FirstNameLabel9, FirstNameLabel10};
@@ -52,6 +103,13 @@ namespace JobChanceCalculator
             FirstNameTextBox6, FirstNameTextBox7, FirstNameTextBox8, FirstNameTextBox9, FirstNameTextBox10};
             this.lastNameTextBoxes = new List<TextBox>() { LastNameTextBox1, LastNameTextBox2, LastNameTextBox3, LastNameTextBox4, LastNameTextBox5,
             LastNameTextBox6, LastNameTextBox7, LastNameTextBox8, LastNameTextBox9, LastNameTextBox10};
+            this.progressBars = new List<ProgressBar>() { ProgressBar1, ProgressBar2, ProgressBar3, ProgressBar4, ProgressBar5, ProgressBar6, ProgressBar7,
+            ProgressBar8, ProgressBar9, ProgressBar10};
+            this.progresses = new List<Progress<int>>() { progress1, progress2, progress3, progress4, progress5, progress6, progress7,
+            progress8, progress9, progress10, progressMain};
+
+            this.numberOfCalculations = 0;
+            this.mainProgress = 0;
 
             for (int i = 0; i < 10; i++)
             {
@@ -61,7 +119,7 @@ namespace JobChanceCalculator
                 jobLabels[i].Text = "";
                 factorLabels[i].Text = "";
             }
-
+            MainProgressBar.Maximum = 0;
 
         }
 
@@ -73,7 +131,20 @@ namespace JobChanceCalculator
 
         private void AddLogMessage(string message)
         {
-            LogTextBox.AppendText($"{DateTime.Now} - {message} \r\n");
+            try
+            {
+                if (LogTextBox.InvokeRequired)
+                {
+                    LogTextBox.Invoke(new Action<string>(AddLogMessage), new object[] {message});
+                    return;
+                }
+                LogTextBox.AppendText($"{DateTime.Now} - {message} \r\n");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            
         }
 
         private async Task Initialize()
@@ -102,40 +173,7 @@ namespace JobChanceCalculator
             }
         }
 
-        /**private async Task ReAssign()
-        {
-            for (int i = 0; i < 10; i++)
-            {
-                firstNameLabels[i].Text = "";
-                lastNameLabels[i].Text = "";
-                editButtons[i].Enabled = false;
-                deleteButtons[i].Enabled = false;
-                calculateButtons[i].Enabled = false;
-                firstNameTextBoxes[i].Text = "";
-                lastNameTextBoxes[i].Text = "";
-            }
 
-            peopleList = await assignment.AssignPeopleAsync();
-
-            for (int i = 0; i < peopleList.Count; i++)
-            {
-                firstNameLabels[i].Text = peopleList[i].firstName;
-                lastNameLabels[i].Text = peopleList[i].lastName;
-                editButtons[i].Enabled = true;
-                deleteButtons[i].Enabled = true;
-                deleteButtons[i].Text = "Delete";
-                calculateButtons[i].Enabled = true;
-                firstNameTextBoxes[i].Visible = false;
-                lastNameTextBoxes[i].Visible = false;
-            }
-            for (int i = peopleList.Count; i < 10; i++)
-            {
-                deleteButtons[i].Text = "Add";
-                deleteButtons[i].Enabled = true;
-                firstNameTextBoxes[i].Visible = true;
-                lastNameTextBoxes[i].Visible = true;
-            }
-        }**/
 
         private bool validateInput(int textBoxNumber)
         {
@@ -205,12 +243,63 @@ namespace JobChanceCalculator
 
         private async Task HandleCalculation(int position)
         {
+            this.numberOfCalculations++;
+            MainProgressBar.Maximum += 10000;
+
+            calculateButtons[position].Enabled = false;
+            cancelButtons[position].Enabled = true;
+            addDeleteButtons[position].Enabled = false;
+            editButtons[position].Enabled = false;
+
+            progressBars[position].Value = 0;
+            progressBars[position].Maximum = 10000;
+
             Person selectedPerson = peopleArray[position];
-            Task calculationTask = Task.Run(() => selectedPerson.CalculateChances());
+            selectedPerson.factor = 0;
+            selectedPerson.OnGraduationChanceCalculated += AddLogMessage;
+            selectedPerson.OnJobChanceCalculated += AddLogMessage;
+            selectedPerson.OnCalculationCompleted += AddLogMessage;
+            selectedPerson.OnMainProgressUpdated += updateMainProgressBar;
+            
+            Task calculationTask = Task.Run(() => selectedPerson.CalculateChances(progresses[position], progresses[10]));
             await calculationTask;
-            graduationLabels[position].Text = $"{selectedPerson.graduate} ({(selectedPerson.graduateChance * 100).ToString()} %))";
-            jobLabels[position].Text = $"{selectedPerson.job} ({(selectedPerson.jobChance * 100).ToString()} %))";
-            factorLabels[position].Text = $"{(selectedPerson.factor * 100).ToString()} %";
+            if (progressBars[position].Value == progressBars[position].Maximum)
+            {
+                mainProgress -= 10000;
+                progressBars[position].Maximum += 1;
+                MainProgressBar.Maximum += 1;
+                progressBars[position].Value += 1;
+                MainProgressBar.Value += 1;
+                progressBars[position].Value -= 1;
+                MainProgressBar.Value -= 1;
+                progressBars[position].Maximum -= 1;
+                MainProgressBar.Maximum -= 1; 
+                MainProgressBar.Value -= 10000;
+                MainProgressBar.Maximum -= 10000;
+            }
+            graduationLabels[position].Text = $"{selectedPerson.graduate} ({(selectedPerson.graduateChance * 100).ToString("##.#")} %)";
+            jobLabels[position].Text = $"{selectedPerson.job} ({(selectedPerson.jobChance * 100).ToString("##.#")} %)";
+            factorLabels[position].Text = $"{(selectedPerson.factor * 100).ToString("##.#")} %";
+            Task sleep = Task.Run(() => Thread.Sleep(100));
+            await sleep;
+            progressBars[position].Value = 0;
+            
+            calculateButtons[position].Enabled = true;
+            cancelButtons[position].Enabled = false;
         }
+
+        private void updateMainProgressBar(int progressCount, IProgress<int> progress)
+        {
+            this.mainProgress += progressCount;
+            lock (progress)
+            {
+                if (progress != null)
+                {
+                    progress.Report(this.mainProgress);
+                }
+            }
+        }
+
+ 
     }
 }

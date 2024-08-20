@@ -50,15 +50,15 @@
             LastNameLabel3 = new Label();
             LastNameLabel2 = new Label();
             LastNameLabel1 = new Label();
-            progressBar2 = new ProgressBar();
-            progressBar3 = new ProgressBar();
-            progressBar4 = new ProgressBar();
-            progressBar5 = new ProgressBar();
-            progressBar6 = new ProgressBar();
-            progressBar7 = new ProgressBar();
-            progressBar8 = new ProgressBar();
-            progressBar9 = new ProgressBar();
-            progressBar10 = new ProgressBar();
+            ProgressBar2 = new ProgressBar();
+            ProgressBar3 = new ProgressBar();
+            ProgressBar4 = new ProgressBar();
+            ProgressBar5 = new ProgressBar();
+            ProgressBar6 = new ProgressBar();
+            ProgressBar7 = new ProgressBar();
+            ProgressBar8 = new ProgressBar();
+            ProgressBar9 = new ProgressBar();
+            ProgressBar10 = new ProgressBar();
             LogTextBox = new RichTextBox();
             EditSubmitButton1 = new Button();
             EditSubmitButton2 = new Button();
@@ -158,6 +158,7 @@
             FactorLabel9 = new Label();
             JobLabel9 = new Label();
             GraduationLabel9 = new Label();
+            MainProgressBar = new ProgressBar();
             SuspendLayout();
             // 
             // ButtonStart
@@ -165,7 +166,7 @@
             ButtonStart.Font = new Font("Yu Gothic UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             ButtonStart.Location = new Point(12, 12);
             ButtonStart.Name = "ButtonStart";
-            ButtonStart.Size = new Size(200, 34);
+            ButtonStart.Size = new Size(157, 34);
             ButtonStart.TabIndex = 0;
             ButtonStart.Text = "Start";
             ButtonStart.UseVisualStyleBackColor = true;
@@ -378,68 +379,68 @@
             LastNameLabel1.TabIndex = 12;
             LastNameLabel1.Text = "label1";
             // 
-            // progressBar2
+            // ProgressBar2
             // 
-            progressBar2.Location = new Point(662, 117);
-            progressBar2.Name = "progressBar2";
-            progressBar2.Size = new Size(214, 25);
-            progressBar2.TabIndex = 22;
+            ProgressBar2.Location = new Point(662, 117);
+            ProgressBar2.Name = "ProgressBar2";
+            ProgressBar2.Size = new Size(214, 25);
+            ProgressBar2.TabIndex = 22;
             // 
-            // progressBar3
+            // ProgressBar3
             // 
-            progressBar3.Location = new Point(662, 151);
-            progressBar3.Name = "progressBar3";
-            progressBar3.Size = new Size(214, 25);
-            progressBar3.TabIndex = 23;
+            ProgressBar3.Location = new Point(662, 151);
+            ProgressBar3.Name = "ProgressBar3";
+            ProgressBar3.Size = new Size(214, 25);
+            ProgressBar3.TabIndex = 23;
             // 
-            // progressBar4
+            // ProgressBar4
             // 
-            progressBar4.Location = new Point(662, 185);
-            progressBar4.Name = "progressBar4";
-            progressBar4.Size = new Size(214, 25);
-            progressBar4.TabIndex = 24;
+            ProgressBar4.Location = new Point(662, 185);
+            ProgressBar4.Name = "ProgressBar4";
+            ProgressBar4.Size = new Size(214, 25);
+            ProgressBar4.TabIndex = 24;
             // 
-            // progressBar5
+            // ProgressBar5
             // 
-            progressBar5.Location = new Point(662, 219);
-            progressBar5.Name = "progressBar5";
-            progressBar5.Size = new Size(214, 25);
-            progressBar5.TabIndex = 25;
+            ProgressBar5.Location = new Point(662, 219);
+            ProgressBar5.Name = "ProgressBar5";
+            ProgressBar5.Size = new Size(214, 25);
+            ProgressBar5.TabIndex = 25;
             // 
-            // progressBar6
+            // ProgressBar6
             // 
-            progressBar6.Location = new Point(662, 253);
-            progressBar6.Name = "progressBar6";
-            progressBar6.Size = new Size(214, 25);
-            progressBar6.TabIndex = 26;
+            ProgressBar6.Location = new Point(662, 253);
+            ProgressBar6.Name = "ProgressBar6";
+            ProgressBar6.Size = new Size(214, 25);
+            ProgressBar6.TabIndex = 26;
             // 
-            // progressBar7
+            // ProgressBar7
             // 
-            progressBar7.Location = new Point(662, 287);
-            progressBar7.Name = "progressBar7";
-            progressBar7.Size = new Size(214, 25);
-            progressBar7.TabIndex = 27;
+            ProgressBar7.Location = new Point(662, 287);
+            ProgressBar7.Name = "ProgressBar7";
+            ProgressBar7.Size = new Size(214, 25);
+            ProgressBar7.TabIndex = 27;
             // 
-            // progressBar8
+            // ProgressBar8
             // 
-            progressBar8.Location = new Point(662, 321);
-            progressBar8.Name = "progressBar8";
-            progressBar8.Size = new Size(214, 25);
-            progressBar8.TabIndex = 28;
+            ProgressBar8.Location = new Point(662, 321);
+            ProgressBar8.Name = "ProgressBar8";
+            ProgressBar8.Size = new Size(214, 25);
+            ProgressBar8.TabIndex = 28;
             // 
-            // progressBar9
+            // ProgressBar9
             // 
-            progressBar9.Location = new Point(662, 355);
-            progressBar9.Name = "progressBar9";
-            progressBar9.Size = new Size(214, 25);
-            progressBar9.TabIndex = 29;
+            ProgressBar9.Location = new Point(662, 355);
+            ProgressBar9.Name = "ProgressBar9";
+            ProgressBar9.Size = new Size(214, 25);
+            ProgressBar9.TabIndex = 29;
             // 
-            // progressBar10
+            // ProgressBar10
             // 
-            progressBar10.Location = new Point(662, 389);
-            progressBar10.Name = "progressBar10";
-            progressBar10.Size = new Size(214, 25);
-            progressBar10.TabIndex = 30;
+            ProgressBar10.Location = new Point(662, 389);
+            ProgressBar10.Name = "ProgressBar10";
+            ProgressBar10.Size = new Size(214, 25);
+            ProgressBar10.TabIndex = 30;
             // 
             // LogTextBox
             // 
@@ -1165,7 +1166,7 @@
             // 
             JobHeaderLabel1.AutoSize = true;
             JobHeaderLabel1.Font = new Font("Yu Gothic UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            JobHeaderLabel1.Location = new Point(1016, 56);
+            JobHeaderLabel1.Location = new Point(1030, 57);
             JobHeaderLabel1.Name = "JobHeaderLabel1";
             JobHeaderLabel1.Size = new Size(78, 17);
             JobHeaderLabel1.TabIndex = 67;
@@ -1175,7 +1176,7 @@
             // 
             FactorHeaderLabel.AutoSize = true;
             FactorHeaderLabel.Font = new Font("Yu Gothic UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            FactorHeaderLabel.Location = new Point(1158, 56);
+            FactorHeaderLabel.Location = new Point(1178, 56);
             FactorHeaderLabel.Name = "FactorHeaderLabel";
             FactorHeaderLabel.Size = new Size(46, 17);
             FactorHeaderLabel.TabIndex = 69;
@@ -1184,10 +1185,10 @@
             // GraduationLabel1
             // 
             GraduationLabel1.AutoSize = true;
-            GraduationLabel1.Font = new Font("Yu Gothic UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            GraduationLabel1.Font = new Font("Yu Gothic UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
             GraduationLabel1.Location = new Point(895, 83);
             GraduationLabel1.Name = "GraduationLabel1";
-            GraduationLabel1.Size = new Size(61, 25);
+            GraduationLabel1.Size = new Size(45, 19);
             GraduationLabel1.TabIndex = 70;
             GraduationLabel1.Text = "label1";
             GraduationLabel1.TextAlign = ContentAlignment.TopCenter;
@@ -1195,10 +1196,10 @@
             // JobLabel1
             // 
             JobLabel1.AutoSize = true;
-            JobLabel1.Font = new Font("Yu Gothic UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            JobLabel1.Location = new Point(1022, 82);
+            JobLabel1.Font = new Font("Yu Gothic UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            JobLabel1.Location = new Point(1036, 83);
             JobLabel1.Name = "JobLabel1";
-            JobLabel1.Size = new Size(61, 25);
+            JobLabel1.Size = new Size(45, 19);
             JobLabel1.TabIndex = 71;
             JobLabel1.Text = "label1";
             JobLabel1.TextAlign = ContentAlignment.TopCenter;
@@ -1206,10 +1207,10 @@
             // FactorLabel1
             // 
             FactorLabel1.AutoSize = true;
-            FactorLabel1.Font = new Font("Yu Gothic UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            FactorLabel1.Location = new Point(1154, 82);
+            FactorLabel1.Font = new Font("Yu Gothic UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            FactorLabel1.Location = new Point(1174, 82);
             FactorLabel1.Name = "FactorLabel1";
-            FactorLabel1.Size = new Size(61, 25);
+            FactorLabel1.Size = new Size(45, 19);
             FactorLabel1.TabIndex = 72;
             FactorLabel1.Text = "label1";
             FactorLabel1.TextAlign = ContentAlignment.TopCenter;
@@ -1217,10 +1218,10 @@
             // FactorLabel2
             // 
             FactorLabel2.AutoSize = true;
-            FactorLabel2.Font = new Font("Yu Gothic UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            FactorLabel2.Location = new Point(1154, 116);
+            FactorLabel2.Font = new Font("Yu Gothic UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            FactorLabel2.Location = new Point(1174, 116);
             FactorLabel2.Name = "FactorLabel2";
-            FactorLabel2.Size = new Size(61, 25);
+            FactorLabel2.Size = new Size(45, 19);
             FactorLabel2.TabIndex = 75;
             FactorLabel2.Text = "label1";
             FactorLabel2.TextAlign = ContentAlignment.TopCenter;
@@ -1228,10 +1229,10 @@
             // JobLabel2
             // 
             JobLabel2.AutoSize = true;
-            JobLabel2.Font = new Font("Yu Gothic UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            JobLabel2.Location = new Point(1022, 116);
+            JobLabel2.Font = new Font("Yu Gothic UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            JobLabel2.Location = new Point(1036, 117);
             JobLabel2.Name = "JobLabel2";
-            JobLabel2.Size = new Size(61, 25);
+            JobLabel2.Size = new Size(45, 19);
             JobLabel2.TabIndex = 74;
             JobLabel2.Text = "label1";
             JobLabel2.TextAlign = ContentAlignment.TopCenter;
@@ -1239,10 +1240,10 @@
             // GraduationLabel2
             // 
             GraduationLabel2.AutoSize = true;
-            GraduationLabel2.Font = new Font("Yu Gothic UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            GraduationLabel2.Font = new Font("Yu Gothic UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
             GraduationLabel2.Location = new Point(895, 117);
             GraduationLabel2.Name = "GraduationLabel2";
-            GraduationLabel2.Size = new Size(61, 25);
+            GraduationLabel2.Size = new Size(45, 19);
             GraduationLabel2.TabIndex = 73;
             GraduationLabel2.Text = "label1";
             GraduationLabel2.TextAlign = ContentAlignment.TopCenter;
@@ -1250,10 +1251,10 @@
             // FactorLabel4
             // 
             FactorLabel4.AutoSize = true;
-            FactorLabel4.Font = new Font("Yu Gothic UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            FactorLabel4.Location = new Point(1154, 184);
+            FactorLabel4.Font = new Font("Yu Gothic UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            FactorLabel4.Location = new Point(1174, 184);
             FactorLabel4.Name = "FactorLabel4";
-            FactorLabel4.Size = new Size(61, 25);
+            FactorLabel4.Size = new Size(45, 19);
             FactorLabel4.TabIndex = 81;
             FactorLabel4.Text = "label1";
             FactorLabel4.TextAlign = ContentAlignment.TopCenter;
@@ -1261,10 +1262,10 @@
             // JobLabel4
             // 
             JobLabel4.AutoSize = true;
-            JobLabel4.Font = new Font("Yu Gothic UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            JobLabel4.Location = new Point(1022, 184);
+            JobLabel4.Font = new Font("Yu Gothic UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            JobLabel4.Location = new Point(1036, 185);
             JobLabel4.Name = "JobLabel4";
-            JobLabel4.Size = new Size(61, 25);
+            JobLabel4.Size = new Size(45, 19);
             JobLabel4.TabIndex = 80;
             JobLabel4.Text = "label1";
             JobLabel4.TextAlign = ContentAlignment.TopCenter;
@@ -1272,10 +1273,10 @@
             // GraduationLabel4
             // 
             GraduationLabel4.AutoSize = true;
-            GraduationLabel4.Font = new Font("Yu Gothic UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            GraduationLabel4.Font = new Font("Yu Gothic UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
             GraduationLabel4.Location = new Point(895, 185);
             GraduationLabel4.Name = "GraduationLabel4";
-            GraduationLabel4.Size = new Size(61, 25);
+            GraduationLabel4.Size = new Size(45, 19);
             GraduationLabel4.TabIndex = 79;
             GraduationLabel4.Text = "label1";
             GraduationLabel4.TextAlign = ContentAlignment.TopCenter;
@@ -1283,10 +1284,10 @@
             // FactorLabel3
             // 
             FactorLabel3.AutoSize = true;
-            FactorLabel3.Font = new Font("Yu Gothic UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            FactorLabel3.Location = new Point(1154, 150);
+            FactorLabel3.Font = new Font("Yu Gothic UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            FactorLabel3.Location = new Point(1174, 150);
             FactorLabel3.Name = "FactorLabel3";
-            FactorLabel3.Size = new Size(61, 25);
+            FactorLabel3.Size = new Size(45, 19);
             FactorLabel3.TabIndex = 78;
             FactorLabel3.Text = "label1";
             FactorLabel3.TextAlign = ContentAlignment.TopCenter;
@@ -1294,10 +1295,10 @@
             // JobLabel3
             // 
             JobLabel3.AutoSize = true;
-            JobLabel3.Font = new Font("Yu Gothic UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            JobLabel3.Location = new Point(1022, 150);
+            JobLabel3.Font = new Font("Yu Gothic UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            JobLabel3.Location = new Point(1036, 151);
             JobLabel3.Name = "JobLabel3";
-            JobLabel3.Size = new Size(61, 25);
+            JobLabel3.Size = new Size(45, 19);
             JobLabel3.TabIndex = 77;
             JobLabel3.Text = "label1";
             JobLabel3.TextAlign = ContentAlignment.TopCenter;
@@ -1305,10 +1306,10 @@
             // GraduationLabel3
             // 
             GraduationLabel3.AutoSize = true;
-            GraduationLabel3.Font = new Font("Yu Gothic UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            GraduationLabel3.Font = new Font("Yu Gothic UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
             GraduationLabel3.Location = new Point(895, 151);
             GraduationLabel3.Name = "GraduationLabel3";
-            GraduationLabel3.Size = new Size(61, 25);
+            GraduationLabel3.Size = new Size(45, 19);
             GraduationLabel3.TabIndex = 76;
             GraduationLabel3.Text = "label1";
             GraduationLabel3.TextAlign = ContentAlignment.TopCenter;
@@ -1316,10 +1317,10 @@
             // FactorLabel6
             // 
             FactorLabel6.AutoSize = true;
-            FactorLabel6.Font = new Font("Yu Gothic UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            FactorLabel6.Location = new Point(1154, 252);
+            FactorLabel6.Font = new Font("Yu Gothic UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            FactorLabel6.Location = new Point(1174, 252);
             FactorLabel6.Name = "FactorLabel6";
-            FactorLabel6.Size = new Size(61, 25);
+            FactorLabel6.Size = new Size(45, 19);
             FactorLabel6.TabIndex = 87;
             FactorLabel6.Text = "label1";
             FactorLabel6.TextAlign = ContentAlignment.TopCenter;
@@ -1327,10 +1328,10 @@
             // JobLabel6
             // 
             JobLabel6.AutoSize = true;
-            JobLabel6.Font = new Font("Yu Gothic UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            JobLabel6.Location = new Point(1022, 252);
+            JobLabel6.Font = new Font("Yu Gothic UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            JobLabel6.Location = new Point(1036, 253);
             JobLabel6.Name = "JobLabel6";
-            JobLabel6.Size = new Size(61, 25);
+            JobLabel6.Size = new Size(45, 19);
             JobLabel6.TabIndex = 86;
             JobLabel6.Text = "label1";
             JobLabel6.TextAlign = ContentAlignment.TopCenter;
@@ -1338,10 +1339,10 @@
             // GraduationLabel6
             // 
             GraduationLabel6.AutoSize = true;
-            GraduationLabel6.Font = new Font("Yu Gothic UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            GraduationLabel6.Font = new Font("Yu Gothic UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
             GraduationLabel6.Location = new Point(895, 253);
             GraduationLabel6.Name = "GraduationLabel6";
-            GraduationLabel6.Size = new Size(61, 25);
+            GraduationLabel6.Size = new Size(45, 19);
             GraduationLabel6.TabIndex = 85;
             GraduationLabel6.Text = "label1";
             GraduationLabel6.TextAlign = ContentAlignment.TopCenter;
@@ -1349,10 +1350,10 @@
             // FactorLabel5
             // 
             FactorLabel5.AutoSize = true;
-            FactorLabel5.Font = new Font("Yu Gothic UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            FactorLabel5.Location = new Point(1154, 218);
+            FactorLabel5.Font = new Font("Yu Gothic UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            FactorLabel5.Location = new Point(1174, 218);
             FactorLabel5.Name = "FactorLabel5";
-            FactorLabel5.Size = new Size(61, 25);
+            FactorLabel5.Size = new Size(45, 19);
             FactorLabel5.TabIndex = 84;
             FactorLabel5.Text = "label1";
             FactorLabel5.TextAlign = ContentAlignment.TopCenter;
@@ -1360,10 +1361,10 @@
             // JobLabel5
             // 
             JobLabel5.AutoSize = true;
-            JobLabel5.Font = new Font("Yu Gothic UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            JobLabel5.Location = new Point(1022, 218);
+            JobLabel5.Font = new Font("Yu Gothic UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            JobLabel5.Location = new Point(1036, 219);
             JobLabel5.Name = "JobLabel5";
-            JobLabel5.Size = new Size(61, 25);
+            JobLabel5.Size = new Size(45, 19);
             JobLabel5.TabIndex = 83;
             JobLabel5.Text = "label1";
             JobLabel5.TextAlign = ContentAlignment.TopCenter;
@@ -1371,10 +1372,10 @@
             // GraduationLabel5
             // 
             GraduationLabel5.AutoSize = true;
-            GraduationLabel5.Font = new Font("Yu Gothic UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            GraduationLabel5.Font = new Font("Yu Gothic UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
             GraduationLabel5.Location = new Point(895, 219);
             GraduationLabel5.Name = "GraduationLabel5";
-            GraduationLabel5.Size = new Size(61, 25);
+            GraduationLabel5.Size = new Size(45, 19);
             GraduationLabel5.TabIndex = 82;
             GraduationLabel5.Text = "label1";
             GraduationLabel5.TextAlign = ContentAlignment.TopCenter;
@@ -1382,10 +1383,10 @@
             // FactorLabel8
             // 
             FactorLabel8.AutoSize = true;
-            FactorLabel8.Font = new Font("Yu Gothic UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            FactorLabel8.Location = new Point(1154, 321);
+            FactorLabel8.Font = new Font("Yu Gothic UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            FactorLabel8.Location = new Point(1174, 321);
             FactorLabel8.Name = "FactorLabel8";
-            FactorLabel8.Size = new Size(61, 25);
+            FactorLabel8.Size = new Size(45, 19);
             FactorLabel8.TabIndex = 93;
             FactorLabel8.Text = "label1";
             FactorLabel8.TextAlign = ContentAlignment.TopCenter;
@@ -1393,10 +1394,10 @@
             // JobLabel8
             // 
             JobLabel8.AutoSize = true;
-            JobLabel8.Font = new Font("Yu Gothic UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            JobLabel8.Location = new Point(1022, 321);
+            JobLabel8.Font = new Font("Yu Gothic UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            JobLabel8.Location = new Point(1036, 322);
             JobLabel8.Name = "JobLabel8";
-            JobLabel8.Size = new Size(61, 25);
+            JobLabel8.Size = new Size(45, 19);
             JobLabel8.TabIndex = 92;
             JobLabel8.Text = "label1";
             JobLabel8.TextAlign = ContentAlignment.TopCenter;
@@ -1404,10 +1405,10 @@
             // GraduationLabel8
             // 
             GraduationLabel8.AutoSize = true;
-            GraduationLabel8.Font = new Font("Yu Gothic UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            GraduationLabel8.Font = new Font("Yu Gothic UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
             GraduationLabel8.Location = new Point(895, 322);
             GraduationLabel8.Name = "GraduationLabel8";
-            GraduationLabel8.Size = new Size(61, 25);
+            GraduationLabel8.Size = new Size(45, 19);
             GraduationLabel8.TabIndex = 91;
             GraduationLabel8.Text = "label1";
             GraduationLabel8.TextAlign = ContentAlignment.TopCenter;
@@ -1415,10 +1416,10 @@
             // FactorLabel7
             // 
             FactorLabel7.AutoSize = true;
-            FactorLabel7.Font = new Font("Yu Gothic UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            FactorLabel7.Location = new Point(1154, 287);
+            FactorLabel7.Font = new Font("Yu Gothic UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            FactorLabel7.Location = new Point(1174, 287);
             FactorLabel7.Name = "FactorLabel7";
-            FactorLabel7.Size = new Size(61, 25);
+            FactorLabel7.Size = new Size(45, 19);
             FactorLabel7.TabIndex = 90;
             FactorLabel7.Text = "label1";
             FactorLabel7.TextAlign = ContentAlignment.TopCenter;
@@ -1426,10 +1427,10 @@
             // JobLabel7
             // 
             JobLabel7.AutoSize = true;
-            JobLabel7.Font = new Font("Yu Gothic UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            JobLabel7.Location = new Point(1022, 287);
+            JobLabel7.Font = new Font("Yu Gothic UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            JobLabel7.Location = new Point(1036, 288);
             JobLabel7.Name = "JobLabel7";
-            JobLabel7.Size = new Size(61, 25);
+            JobLabel7.Size = new Size(45, 19);
             JobLabel7.TabIndex = 89;
             JobLabel7.Text = "label1";
             JobLabel7.TextAlign = ContentAlignment.TopCenter;
@@ -1437,10 +1438,10 @@
             // GraduationLabel7
             // 
             GraduationLabel7.AutoSize = true;
-            GraduationLabel7.Font = new Font("Yu Gothic UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            GraduationLabel7.Font = new Font("Yu Gothic UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
             GraduationLabel7.Location = new Point(895, 288);
             GraduationLabel7.Name = "GraduationLabel7";
-            GraduationLabel7.Size = new Size(61, 25);
+            GraduationLabel7.Size = new Size(45, 19);
             GraduationLabel7.TabIndex = 88;
             GraduationLabel7.Text = "label1";
             GraduationLabel7.TextAlign = ContentAlignment.TopCenter;
@@ -1448,10 +1449,10 @@
             // FactorLabel10
             // 
             FactorLabel10.AutoSize = true;
-            FactorLabel10.Font = new Font("Yu Gothic UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            FactorLabel10.Location = new Point(1154, 388);
+            FactorLabel10.Font = new Font("Yu Gothic UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            FactorLabel10.Location = new Point(1174, 388);
             FactorLabel10.Name = "FactorLabel10";
-            FactorLabel10.Size = new Size(61, 25);
+            FactorLabel10.Size = new Size(45, 19);
             FactorLabel10.TabIndex = 99;
             FactorLabel10.Text = "label1";
             FactorLabel10.TextAlign = ContentAlignment.TopCenter;
@@ -1459,10 +1460,10 @@
             // JobLabel10
             // 
             JobLabel10.AutoSize = true;
-            JobLabel10.Font = new Font("Yu Gothic UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            JobLabel10.Location = new Point(1022, 388);
+            JobLabel10.Font = new Font("Yu Gothic UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            JobLabel10.Location = new Point(1036, 389);
             JobLabel10.Name = "JobLabel10";
-            JobLabel10.Size = new Size(61, 25);
+            JobLabel10.Size = new Size(45, 19);
             JobLabel10.TabIndex = 98;
             JobLabel10.Text = "label1";
             JobLabel10.TextAlign = ContentAlignment.TopCenter;
@@ -1470,10 +1471,10 @@
             // GraduationLabel10
             // 
             GraduationLabel10.AutoSize = true;
-            GraduationLabel10.Font = new Font("Yu Gothic UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            GraduationLabel10.Font = new Font("Yu Gothic UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
             GraduationLabel10.Location = new Point(895, 389);
             GraduationLabel10.Name = "GraduationLabel10";
-            GraduationLabel10.Size = new Size(61, 25);
+            GraduationLabel10.Size = new Size(45, 19);
             GraduationLabel10.TabIndex = 97;
             GraduationLabel10.Text = "label1";
             GraduationLabel10.TextAlign = ContentAlignment.TopCenter;
@@ -1481,10 +1482,10 @@
             // FactorLabel9
             // 
             FactorLabel9.AutoSize = true;
-            FactorLabel9.Font = new Font("Yu Gothic UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            FactorLabel9.Location = new Point(1154, 354);
+            FactorLabel9.Font = new Font("Yu Gothic UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            FactorLabel9.Location = new Point(1174, 354);
             FactorLabel9.Name = "FactorLabel9";
-            FactorLabel9.Size = new Size(61, 25);
+            FactorLabel9.Size = new Size(45, 19);
             FactorLabel9.TabIndex = 96;
             FactorLabel9.Text = "label1";
             FactorLabel9.TextAlign = ContentAlignment.TopCenter;
@@ -1492,10 +1493,10 @@
             // JobLabel9
             // 
             JobLabel9.AutoSize = true;
-            JobLabel9.Font = new Font("Yu Gothic UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            JobLabel9.Location = new Point(1022, 354);
+            JobLabel9.Font = new Font("Yu Gothic UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            JobLabel9.Location = new Point(1036, 355);
             JobLabel9.Name = "JobLabel9";
-            JobLabel9.Size = new Size(61, 25);
+            JobLabel9.Size = new Size(45, 19);
             JobLabel9.TabIndex = 95;
             JobLabel9.Text = "label1";
             JobLabel9.TextAlign = ContentAlignment.TopCenter;
@@ -1503,19 +1504,27 @@
             // GraduationLabel9
             // 
             GraduationLabel9.AutoSize = true;
-            GraduationLabel9.Font = new Font("Yu Gothic UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            GraduationLabel9.Font = new Font("Yu Gothic UI Semibold", 10F, FontStyle.Bold, GraphicsUnit.Point);
             GraduationLabel9.Location = new Point(895, 355);
             GraduationLabel9.Name = "GraduationLabel9";
-            GraduationLabel9.Size = new Size(61, 25);
+            GraduationLabel9.Size = new Size(45, 19);
             GraduationLabel9.TabIndex = 94;
             GraduationLabel9.Text = "label1";
             GraduationLabel9.TextAlign = ContentAlignment.TopCenter;
+            // 
+            // MainProgressBar
+            // 
+            MainProgressBar.Location = new Point(194, 12);
+            MainProgressBar.Name = "MainProgressBar";
+            MainProgressBar.Size = new Size(682, 34);
+            MainProgressBar.TabIndex = 100;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1242, 626);
+            ClientSize = new Size(1252, 626);
+            Controls.Add(MainProgressBar);
             Controls.Add(FactorLabel10);
             Controls.Add(JobLabel10);
             Controls.Add(GraduationLabel10);
@@ -1615,15 +1624,15 @@
             Controls.Add(EditSubmitButton2);
             Controls.Add(EditSubmitButton1);
             Controls.Add(LogTextBox);
-            Controls.Add(progressBar10);
-            Controls.Add(progressBar9);
-            Controls.Add(progressBar8);
-            Controls.Add(progressBar7);
-            Controls.Add(progressBar6);
-            Controls.Add(progressBar5);
-            Controls.Add(progressBar4);
-            Controls.Add(progressBar3);
-            Controls.Add(progressBar2);
+            Controls.Add(ProgressBar10);
+            Controls.Add(ProgressBar9);
+            Controls.Add(ProgressBar8);
+            Controls.Add(ProgressBar7);
+            Controls.Add(ProgressBar6);
+            Controls.Add(ProgressBar5);
+            Controls.Add(ProgressBar4);
+            Controls.Add(ProgressBar3);
+            Controls.Add(ProgressBar2);
             Controls.Add(LastNameLabel8);
             Controls.Add(LastNameLabel9);
             Controls.Add(LastNameLabel10);
@@ -1676,15 +1685,15 @@
         private Label LastNameLabel3;
         private Label LastNameLabel2;
         private Label LastNameLabel1;
-        private ProgressBar progressBar2;
-        private ProgressBar progressBar3;
-        private ProgressBar progressBar4;
-        private ProgressBar progressBar5;
-        private ProgressBar progressBar6;
-        private ProgressBar progressBar7;
-        private ProgressBar progressBar8;
-        private ProgressBar progressBar9;
-        private ProgressBar progressBar10;
+        private ProgressBar ProgressBar2;
+        private ProgressBar ProgressBar3;
+        private ProgressBar ProgressBar4;
+        private ProgressBar ProgressBar5;
+        private ProgressBar ProgressBar6;
+        private ProgressBar ProgressBar7;
+        private ProgressBar ProgressBar8;
+        private ProgressBar ProgressBar9;
+        private ProgressBar ProgressBar10;
         private RichTextBox LogTextBox;
         private Button EditSubmitButton1;
         private Button EditSubmitButton2;
@@ -1784,5 +1793,6 @@
         private Label FactorLabel9;
         private Label JobLabel9;
         private Label GraduationLabel9;
+        private ProgressBar MainProgressBar;
     }
 }
