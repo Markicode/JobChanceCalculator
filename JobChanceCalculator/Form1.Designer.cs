@@ -159,6 +159,7 @@
             JobLabel9 = new Label();
             GraduationLabel9 = new Label();
             MainProgressBar = new ProgressBar();
+            RebuildButton = new Button();
             SuspendLayout();
             // 
             // ButtonStart
@@ -1156,7 +1157,7 @@
             // 
             GraduationHeaderLabel1.AutoSize = true;
             GraduationHeaderLabel1.Font = new Font("Yu Gothic UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            GraduationHeaderLabel1.Location = new Point(890, 39);
+            GraduationHeaderLabel1.Location = new Point(867, 57);
             GraduationHeaderLabel1.Name = "GraduationHeaderLabel1";
             GraduationHeaderLabel1.Size = new Size(73, 17);
             GraduationHeaderLabel1.TabIndex = 65;
@@ -1166,7 +1167,7 @@
             // 
             GraduationHeaderLabel2.AutoSize = true;
             GraduationHeaderLabel2.Font = new Font("Yu Gothic UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            GraduationHeaderLabel2.Location = new Point(897, 57);
+            GraduationHeaderLabel2.Location = new Point(936, 57);
             GraduationHeaderLabel2.Name = "GraduationHeaderLabel2";
             GraduationHeaderLabel2.Size = new Size(53, 17);
             GraduationHeaderLabel2.TabIndex = 66;
@@ -1529,11 +1530,23 @@
             MainProgressBar.Size = new Size(682, 34);
             MainProgressBar.TabIndex = 100;
             // 
+            // RebuildButton
+            // 
+            RebuildButton.Enabled = false;
+            RebuildButton.Location = new Point(894, 12);
+            RebuildButton.Name = "RebuildButton";
+            RebuildButton.Size = new Size(176, 34);
+            RebuildButton.TabIndex = 101;
+            RebuildButton.Text = "Rebuild";
+            RebuildButton.UseVisualStyleBackColor = true;
+            RebuildButton.Click += RebuildButton_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1252, 626);
+            Controls.Add(RebuildButton);
             Controls.Add(MainProgressBar);
             Controls.Add(FactorLabel10);
             Controls.Add(JobLabel10);
@@ -1804,5 +1817,6 @@
         private Label JobLabel9;
         private Label GraduationLabel9;
         private ProgressBar MainProgressBar;
+        private Button RebuildButton;
     }
 }

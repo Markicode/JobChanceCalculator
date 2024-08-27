@@ -16,16 +16,18 @@ namespace JobChanceCalculator
         public delegate void PersonAddedDelegate(string message);
         public delegate void PersonDeletedDelegate(string message);
         public delegate void PersonUpdatedDelegate(string message);
+        public delegate void PeopleDeletedDelegate(string message);
 
         public event PersonAddedDelegate? PersonAdded;
         public event PersonDeletedDelegate? PersonDeleted;
         public event PersonUpdatedDelegate? PersonUpdated;
+        public event PeopleDeletedDelegate? PeopleDeleted;
 
-        public DbConnection() 
+        public DbConnection()
         {
             this.database = new Database("Careerpath");
         }
-     
+
         public Task SetupDb()
         {
             Task t = Task.Run(() =>
@@ -184,9 +186,9 @@ namespace JobChanceCalculator
             List<object> result = this.PerformQuery(@$"SELECT * FROM person WHERE id='{id}'");
             if (result.Count() > 0)
             {
-                    List<object> valueList = result[0] as List<object>;
-                    Person person = new Person(Convert.ToInt32(valueList[0]), valueList[1].ToString(), valueList[2].ToString());
-                    return person;
+                List<object> valueList = result[0] as List<object>;
+                Person person = new Person(Convert.ToInt32(valueList[0]), valueList[1].ToString(), valueList[2].ToString());
+                return person;
             }
             else
             {
@@ -222,6 +224,20 @@ namespace JobChanceCalculator
                 professions.Add(result[1].ToString());
             }
             return professions;
+        }
+
+        public async Task DeleteAll()
+        {
+            Task deleteAllTask = Task.Run(() =>
+            {
+                this.PerformNonQuery($"DELETE FROM person");
+                Thread.Sleep(2000);
+            });
+            await deleteAllTask;
+            if (PeopleDeleted != null)
+            {
+                this.PeopleDeleted($"All people deleted.");
+            }
         }
     }
 }

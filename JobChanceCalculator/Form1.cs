@@ -34,6 +34,7 @@ namespace JobChanceCalculator
             dbConn.PersonAdded += AddLogMessage;
             dbConn.PersonDeleted += AddLogMessage;
             dbConn.PersonUpdated += AddLogMessage;
+            dbConn.PeopleDeleted += AddLogMessage;
 
             this.peopleList = new List<Person>();
             this.peopleArray = new Person?[10];
@@ -83,33 +84,7 @@ namespace JobChanceCalculator
                 MainProgressBar.Value = percent;
             });
 
-            CancellationTokenSource cts1 = new CancellationTokenSource();
-            CancellationTokenSource cts2 = new CancellationTokenSource();
-            CancellationTokenSource cts3 = new CancellationTokenSource();
-            CancellationTokenSource cts4 = new CancellationTokenSource();   
-            CancellationTokenSource cts5 = new CancellationTokenSource();
-            CancellationTokenSource cts6 = new CancellationTokenSource();
-            CancellationTokenSource cts7 = new CancellationTokenSource();
-            CancellationTokenSource cts8 = new CancellationTokenSource();
-            CancellationTokenSource cts9 = new CancellationTokenSource();
-            CancellationTokenSource cts10 = new CancellationTokenSource();
-            CancellationTokenSource ctsmain = new CancellationTokenSource();
 
-            CancellationToken cancelToken1 = cts1.Token;
-            CancellationToken cancelToken2 = cts2.Token;
-            CancellationToken cancelToken3 = cts3.Token;
-            CancellationToken cancelToken4 = cts4.Token;
-            CancellationToken cancelToken5 = cts5.Token;
-            CancellationToken cancelToken6 = cts6.Token;
-            CancellationToken cancelToken7 = cts7.Token;
-            CancellationToken cancelToken8 = cts8.Token;
-            CancellationToken cancelToken9 = cts9.Token;
-            CancellationToken cancelToken10 = cts10.Token;
-            CancellationToken cancelTokenMain = ctsmain.Token;
-
-            cancelTokenSources = new List<CancellationTokenSource>() {cts1, cts2, cts3, cts4, cts5, cts6, cts7, cts8, cts9, cts10, ctsmain};
-            cancelTokens = new List<CancellationToken>() { cancelToken1, cancelToken2, cancelToken3, cancelToken4, cancelToken5, cancelToken6, cancelToken7,
-            cancelToken8, cancelToken9, cancelToken10, cancelTokenMain};
 
             this.firstNameLabels = new List<Label>() {FirstNameLabel1, FirstNameLabel2, FirstNameLabel3, FirstNameLabel4, FirstNameLabel5, FirstNameLabel6,
             FirstNameLabel7, FirstNameLabel8, FirstNameLabel9, FirstNameLabel10};
@@ -195,6 +170,8 @@ namespace JobChanceCalculator
                 editButtons[i].Enabled = true;
                 addDeleteButtons[i].Enabled = true;
                 calculateButtons[i].Enabled = true;
+                firstNameTextBoxes[i].Visible = false;
+                lastNameTextBoxes[i].Visible = false;
             }
             for (int i = peopleList.Count; i < 10; i++)
             {
@@ -204,6 +181,33 @@ namespace JobChanceCalculator
                 lastNameTextBoxes[i].Visible = true;
                 calculateButtons[i].Enabled = false;
             }
+            CancellationTokenSource cts1 = new CancellationTokenSource();
+            CancellationTokenSource cts2 = new CancellationTokenSource();
+            CancellationTokenSource cts3 = new CancellationTokenSource();
+            CancellationTokenSource cts4 = new CancellationTokenSource();
+            CancellationTokenSource cts5 = new CancellationTokenSource();
+            CancellationTokenSource cts6 = new CancellationTokenSource();
+            CancellationTokenSource cts7 = new CancellationTokenSource();
+            CancellationTokenSource cts8 = new CancellationTokenSource();
+            CancellationTokenSource cts9 = new CancellationTokenSource();
+            CancellationTokenSource cts10 = new CancellationTokenSource();
+
+            CancellationToken cancelToken1 = cts1.Token;
+            CancellationToken cancelToken2 = cts2.Token;
+            CancellationToken cancelToken3 = cts3.Token;
+            CancellationToken cancelToken4 = cts4.Token;
+            CancellationToken cancelToken5 = cts5.Token;
+            CancellationToken cancelToken6 = cts6.Token;
+            CancellationToken cancelToken7 = cts7.Token;
+            CancellationToken cancelToken8 = cts8.Token;
+            CancellationToken cancelToken9 = cts9.Token;
+            CancellationToken cancelToken10 = cts10.Token;
+
+            cancelTokenSources = new List<CancellationTokenSource>() { cts1, cts2, cts3, cts4, cts5, cts6, cts7, cts8, cts9, cts10 };
+            cancelTokens = new List<CancellationToken>() { cancelToken1, cancelToken2, cancelToken3, cancelToken4, cancelToken5, cancelToken6, cancelToken7,
+            cancelToken8, cancelToken9, cancelToken10};
+
+            RebuildButton.Enabled = true;
         }
 
 
@@ -277,7 +281,9 @@ namespace JobChanceCalculator
         private async Task HandleCalculation(int position)
         {
             MainProgressBar.Maximum += 10000;
-
+            graduationLabels[position].Text = "";
+            jobLabels[position].Text = "";
+            factorLabels[position].Text = "";
             calculateButtons[position].Enabled = false;
             cancelButtons[position].Enabled = true;
             addDeleteButtons[position].Enabled = false;
@@ -301,7 +307,6 @@ namespace JobChanceCalculator
             catch (OperationCanceledException oce)
             {
                 this.taskCanceled($"{selectedPerson.firstName} {selectedPerson.lastName}: Calculations canceled.");
-                this.taskCanceled($"{oce.Message}");
             }
             if (!cancelTokens[position].IsCancellationRequested)
             {
@@ -408,6 +413,21 @@ namespace JobChanceCalculator
         private async Task HandleCancellation(int position)
         {
             this.cancelTokenSources[position].Cancel();
+        }
+
+        private async void RebuildButton_Click(object sender, EventArgs e)
+        {
+            RebuildButton.Enabled = false;
+            for (int i = 0; i < 10; i++)
+            {
+                editButtons[i].Enabled = false;
+                addDeleteButtons[i].Enabled = false;
+                calculateButtons[i].Enabled = false;
+                cancelButtons[i].Enabled = false;
+                cancelTokenSources[i].Cancel();
+            }
+            await dbConn.DeleteAll();
+            await this.Initialize();
         }
     }
 }
