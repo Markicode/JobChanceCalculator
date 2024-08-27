@@ -702,6 +702,7 @@
             CancelButton10.TabIndex = 60;
             CancelButton10.Text = "Cancel";
             CancelButton10.UseVisualStyleBackColor = true;
+            CancelButton10.Click += CancelButton10_Click;
             // 
             // CancelButton9
             // 
@@ -713,6 +714,7 @@
             CancelButton9.TabIndex = 54;
             CancelButton9.Text = "Cancel";
             CancelButton9.UseVisualStyleBackColor = true;
+            CancelButton9.Click += CancelButton9_Click;
             // 
             // CancelButton8
             // 
@@ -724,6 +726,7 @@
             CancelButton8.TabIndex = 48;
             CancelButton8.Text = "Cancel";
             CancelButton8.UseVisualStyleBackColor = true;
+            CancelButton8.Click += CancelButton8_Click;
             // 
             // CancelButton7
             // 
@@ -735,6 +738,7 @@
             CancelButton7.TabIndex = 42;
             CancelButton7.Text = "Cancel";
             CancelButton7.UseVisualStyleBackColor = true;
+            CancelButton7.Click += CancelButton7_Click;
             // 
             // CancelButton6
             // 
@@ -746,6 +750,7 @@
             CancelButton6.TabIndex = 36;
             CancelButton6.Text = "Cancel";
             CancelButton6.UseVisualStyleBackColor = true;
+            CancelButton6.Click += CancelButton6_Click;
             // 
             // CancelButton5
             // 
@@ -757,6 +762,7 @@
             CancelButton5.TabIndex = 30;
             CancelButton5.Text = "Cancel";
             CancelButton5.UseVisualStyleBackColor = true;
+            CancelButton5.Click += CancelButton5_Click;
             // 
             // CancelButton4
             // 
@@ -768,6 +774,7 @@
             CancelButton4.TabIndex = 24;
             CancelButton4.Text = "Cancel";
             CancelButton4.UseVisualStyleBackColor = true;
+            CancelButton4.Click += CancelButton4_Click;
             // 
             // CancelButton3
             // 
@@ -779,6 +786,7 @@
             CancelButton3.TabIndex = 18;
             CancelButton3.Text = "Cancel";
             CancelButton3.UseVisualStyleBackColor = true;
+            CancelButton3.Click += CancelButton3_Click;
             // 
             // CancelButton2
             // 
@@ -790,6 +798,7 @@
             CancelButton2.TabIndex = 12;
             CancelButton2.Text = "Cancel";
             CancelButton2.UseVisualStyleBackColor = true;
+            CancelButton2.Click += CancelButton2_Click;
             // 
             // CancelButton1
             // 
@@ -801,6 +810,7 @@
             CancelButton1.TabIndex = 6;
             CancelButton1.Text = "Cancel";
             CancelButton1.UseVisualStyleBackColor = true;
+            CancelButton1.Click += CancelButton1_Click;
             // 
             // CalculateButton10
             // 

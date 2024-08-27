@@ -20,15 +20,15 @@ namespace JobChanceCalculator
 
         private static DbConnection DbConn = new DbConnection();
 
-        public delegate void OnGraduationChanceCalculatedDelegate(string message);
-        public delegate void OnJobChanceCalculatedDelegate(string message);
-        public delegate void OnCalculationCompletedDelegate(string message);
-        public delegate void OnMainProgressUpdatedDelegate(int progressCount, IProgress<int> progress);
+        public delegate void GraduationChanceCalculatedDelegate(string message);
+        public delegate void JobChanceCalculatedDelegate(string message);
+        public delegate void CalculationCompletedDelegate(string message);
+        public delegate void MainProgressUpdatedDelegate(int progressCount, IProgress<int> progress);
 
-        public event OnGraduationChanceCalculatedDelegate OnGraduationChanceCalculated;
-        public event OnJobChanceCalculatedDelegate OnJobChanceCalculated;
-        public event OnCalculationCompletedDelegate OnCalculationCompleted;
-        public event OnMainProgressUpdatedDelegate OnMainProgressUpdated;
+        public event GraduationChanceCalculatedDelegate graduationChanceCalculated;
+        public event JobChanceCalculatedDelegate jobChanceCalculated;
+        public event CalculationCompletedDelegate calculationCompleted;
+        public event MainProgressUpdatedDelegate mainProgressUpdated;
 
         public Person(int id, string firstName, string lastName) 
         {
@@ -38,7 +38,7 @@ namespace JobChanceCalculator
             this.factor = 0;
         }
 
-        public void CalculateChances(IProgress<int> progress, IProgress<int> progressMain)
+        public void CalculateChances(IProgress<int> progress, IProgress<int> progressMain, CancellationToken token)
         {
             List<string> educations = DbConn.GetEducations();
             List<string> professions = DbConn.GetProfessions();
@@ -56,22 +56,36 @@ namespace JobChanceCalculator
                     Thread.Sleep(1);
                     if (j % 10 == 0)
                     {
+                        if (token.IsCancellationRequested)
+                        {
+                            if (mainProgressUpdated != null)
+                            {
+                                mainProgressUpdated(-progressCounter, progressMain);
+                            }
+                                progressCounter = 0;
+                            if (progress != null)
+                            {
+                                progress.Report(progressCounter);
+                            }
+                            token.ThrowIfCancellationRequested();
+                            return;
+                        }
                         progressCounter += 10;
                         if (progress != null)
                         {
                             progress.Report(progressCounter);
                         }
-                        if (OnMainProgressUpdated != null)
+                        if (mainProgressUpdated != null)
                         {
-                            OnMainProgressUpdated(10, progressMain);
+                            mainProgressUpdated(10, progressMain);
                         }
                             
                     }
                 }
                 double graduationChance = random.NextDouble();
-                if(OnGraduationChanceCalculated != null)
+                if(graduationChanceCalculated != null)
                 {
-                    OnGraduationChanceCalculated($"{this.firstName} {this.lastName}: Chance of getting graduate in the field of {educations[i]} calculated: {graduationChance.ToString("0.##")}");
+                    graduationChanceCalculated($"{this.firstName} {this.lastName}: Chance of getting graduate in the field of {educations[i]} calculated: {graduationChance.ToString("0.##")}");
                 }
 
                 int sleep2 = random.Next(50, 500);
@@ -80,21 +94,35 @@ namespace JobChanceCalculator
                     Thread.Sleep(1);
                     if (j % 10 == 0)
                     {
+                        if (token.IsCancellationRequested)
+                        {
+                            if (mainProgressUpdated != null)
+                            {
+                                mainProgressUpdated(-progressCounter, progressMain);
+                            }
+                            progressCounter = 0;
+                            if (progress != null)
+                            {
+                                progress.Report(progressCounter);
+                            }
+                            token.ThrowIfCancellationRequested();
+                            return;
+                        }
                         progressCounter += 10;
                         if (progress != null)
                         {
                             progress.Report(progressCounter);
                         }
-                        if (OnMainProgressUpdated != null)
+                        if (mainProgressUpdated != null)
                         {
-                            OnMainProgressUpdated(10, progressMain);
+                            mainProgressUpdated(10, progressMain);
                         }
                     }
                 }
                 double professionChance = random.NextDouble();
-                if (OnGraduationChanceCalculated != null)
+                if (jobChanceCalculated != null)
                 {
-                    OnGraduationChanceCalculated($"{this.firstName} {this.lastName}: Chance of getting job as {professions[i]} calculated: {professionChance.ToString("0.##")}");
+                    jobChanceCalculated($"{this.firstName} {this.lastName}: Chance of getting job as {professions[i]} calculated: {professionChance.ToString("0.##")}");
                 }
 
                 currentFactor = graduationChance * professionChance;
@@ -105,9 +133,9 @@ namespace JobChanceCalculator
                 {
                     progress.Report(progressCounter);
                 }
-                if (OnMainProgressUpdated != null)
+                if (mainProgressUpdated != null)
                 {
-                    OnMainProgressUpdated(counterDifference, progressMain);
+                    mainProgressUpdated(counterDifference, progressMain);
                 }
                 if (currentFactor > this.factor)
                 {
@@ -118,9 +146,9 @@ namespace JobChanceCalculator
                     this.job = professions[i];
                 }
             }
-            if(OnCalculationCompleted != null)
+            if(calculationCompleted != null)
             {
-                OnCalculationCompleted($"All calculations for {this.firstName} {this.lastName} completed.");
+                calculationCompleted($"All calculations for {this.firstName} {this.lastName} completed.");
             }
         }
 

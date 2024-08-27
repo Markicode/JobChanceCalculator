@@ -17,6 +17,8 @@ namespace JobChanceCalculator
         List<ProgressBar> progressBars;
         List<Person> peopleList;
         List<Progress<int>> progresses;
+        List<CancellationTokenSource> cancelTokenSources;
+        List<CancellationToken> cancelTokens;
         Person?[] peopleArray;
         Assignment assignment;
         int numberOfCalculations;
@@ -32,7 +34,7 @@ namespace JobChanceCalculator
             dbConn.PersonAdded += AddLogMessage;
             dbConn.PersonDeleted += AddLogMessage;
             dbConn.PersonUpdated += AddLogMessage;
-            
+
             this.peopleList = new List<Person>();
             this.peopleArray = new Person?[10];
 
@@ -81,6 +83,33 @@ namespace JobChanceCalculator
                 MainProgressBar.Value = percent;
             });
 
+            CancellationTokenSource cts1 = new CancellationTokenSource();
+            CancellationTokenSource cts2 = new CancellationTokenSource();
+            CancellationTokenSource cts3 = new CancellationTokenSource();
+            CancellationTokenSource cts4 = new CancellationTokenSource();   
+            CancellationTokenSource cts5 = new CancellationTokenSource();
+            CancellationTokenSource cts6 = new CancellationTokenSource();
+            CancellationTokenSource cts7 = new CancellationTokenSource();
+            CancellationTokenSource cts8 = new CancellationTokenSource();
+            CancellationTokenSource cts9 = new CancellationTokenSource();
+            CancellationTokenSource cts10 = new CancellationTokenSource();
+            CancellationTokenSource ctsmain = new CancellationTokenSource();
+
+            CancellationToken cancelToken1 = cts1.Token;
+            CancellationToken cancelToken2 = cts2.Token;
+            CancellationToken cancelToken3 = cts3.Token;
+            CancellationToken cancelToken4 = cts4.Token;
+            CancellationToken cancelToken5 = cts5.Token;
+            CancellationToken cancelToken6 = cts6.Token;
+            CancellationToken cancelToken7 = cts7.Token;
+            CancellationToken cancelToken8 = cts8.Token;
+            CancellationToken cancelToken9 = cts9.Token;
+            CancellationToken cancelToken10 = cts10.Token;
+            CancellationToken cancelTokenMain = ctsmain.Token;
+
+            cancelTokenSources = new List<CancellationTokenSource>() {cts1, cts2, cts3, cts4, cts5, cts6, cts7, cts8, cts9, cts10, ctsmain};
+            cancelTokens = new List<CancellationToken>() { cancelToken1, cancelToken2, cancelToken3, cancelToken4, cancelToken5, cancelToken6, cancelToken7,
+            cancelToken8, cancelToken9, cancelToken10, cancelTokenMain};
 
             this.firstNameLabels = new List<Label>() {FirstNameLabel1, FirstNameLabel2, FirstNameLabel3, FirstNameLabel4, FirstNameLabel5, FirstNameLabel6,
             FirstNameLabel7, FirstNameLabel8, FirstNameLabel9, FirstNameLabel10};
@@ -108,8 +137,8 @@ namespace JobChanceCalculator
             this.progresses = new List<Progress<int>>() { progress1, progress2, progress3, progress4, progress5, progress6, progress7,
             progress8, progress9, progress10, progressMain};
 
-            this.numberOfCalculations = 0;
             this.mainProgress = 0;
+            this.taskCanceled += AddLogMessage;
 
             for (int i = 0; i < 10; i++)
             {
@@ -123,6 +152,10 @@ namespace JobChanceCalculator
 
         }
 
+        public delegate void taskCanceledDelegate(string message);
+
+        public event taskCanceledDelegate taskCanceled;
+
         private async void ButtonStart_Click(object sender, EventArgs e)
         {
             await this.Initialize();
@@ -135,7 +168,7 @@ namespace JobChanceCalculator
             {
                 if (LogTextBox.InvokeRequired)
                 {
-                    LogTextBox.Invoke(new Action<string>(AddLogMessage), new object[] {message});
+                    LogTextBox.Invoke(new Action<string>(AddLogMessage), new object[] { message });
                     return;
                 }
                 LogTextBox.AppendText($"{DateTime.Now} - {message} \r\n");
@@ -144,7 +177,7 @@ namespace JobChanceCalculator
             {
                 MessageBox.Show(ex.ToString());
             }
-            
+
         }
 
         private async Task Initialize()
@@ -243,7 +276,6 @@ namespace JobChanceCalculator
 
         private async Task HandleCalculation(int position)
         {
-            this.numberOfCalculations++;
             MainProgressBar.Maximum += 10000;
 
             calculateButtons[position].Enabled = false;
@@ -256,42 +288,65 @@ namespace JobChanceCalculator
 
             Person selectedPerson = peopleArray[position];
             selectedPerson.factor = 0;
-            selectedPerson.OnGraduationChanceCalculated += AddLogMessage;
-            selectedPerson.OnJobChanceCalculated += AddLogMessage;
-            selectedPerson.OnCalculationCompleted += AddLogMessage;
-            selectedPerson.OnMainProgressUpdated += updateMainProgressBar;
-            
-            Task calculationTask = Task.Run(() => selectedPerson.CalculateChances(progresses[position], progresses[10]));
-            await calculationTask;
-            if (progressBars[position].Value == progressBars[position].Maximum)
+            selectedPerson.graduationChanceCalculated += AddLogMessage;
+            selectedPerson.jobChanceCalculated += AddLogMessage;
+            selectedPerson.calculationCompleted += AddLogMessage;
+            selectedPerson.mainProgressUpdated += updateMainProgressBar;
+
+            Task calculationTask = Task.Run(() => selectedPerson.CalculateChances(progresses[position], progresses[10], cancelTokens[position]));
+            try
             {
-                mainProgress -= 10000;
-                progressBars[position].Maximum += 1;
-                MainProgressBar.Maximum += 1;
-                progressBars[position].Value += 1;
-                MainProgressBar.Value += 1;
-                progressBars[position].Value -= 1;
-                MainProgressBar.Value -= 1;
-                progressBars[position].Maximum -= 1;
-                MainProgressBar.Maximum -= 1; 
-                MainProgressBar.Value -= 10000;
+                await calculationTask;
+            }
+            catch (OperationCanceledException oce)
+            {
+                this.taskCanceled($"{selectedPerson.firstName} {selectedPerson.lastName}: Calculations canceled.");
+                this.taskCanceled($"{oce.Message}");
+            }
+            if (!cancelTokens[position].IsCancellationRequested)
+            {
+                if (progressBars[position].Value == progressBars[position].Maximum)
+                {
+                    mainProgress -= 10000;
+                    progressBars[position].Maximum += 1;
+                    MainProgressBar.Maximum += 1;
+                    progressBars[position].Value += 1;
+                    MainProgressBar.Value += 1;
+                    progressBars[position].Value -= 1;
+                    MainProgressBar.Value -= 1;
+                    progressBars[position].Maximum -= 1;
+                    MainProgressBar.Maximum -= 1;
+                    MainProgressBar.Value -= 10000;
+                    MainProgressBar.Maximum -= 10000;
+                }
+                graduationLabels[position].Text = $"{selectedPerson.graduate} ({(selectedPerson.graduateChance * 100).ToString("##.#")} %)";
+                jobLabels[position].Text = $"{selectedPerson.job} ({(selectedPerson.jobChance * 100).ToString("##.#")} %)";
+                factorLabels[position].Text = $"{(selectedPerson.factor * 100).ToString("##.#")} %";
+                Task sleep = Task.Run(() => Thread.Sleep(100));
+                await sleep;
+                progressBars[position].Value = 0;
+            }
+            else
+            {
                 MainProgressBar.Maximum -= 10000;
             }
-            graduationLabels[position].Text = $"{selectedPerson.graduate} ({(selectedPerson.graduateChance * 100).ToString("##.#")} %)";
-            jobLabels[position].Text = $"{selectedPerson.job} ({(selectedPerson.jobChance * 100).ToString("##.#")} %)";
-            factorLabels[position].Text = $"{(selectedPerson.factor * 100).ToString("##.#")} %";
-            Task sleep = Task.Run(() => Thread.Sleep(100));
-            await sleep;
-            progressBars[position].Value = 0;
-            
+            cancelTokenSources[position].Dispose();
+            cancelTokenSources[position] = new CancellationTokenSource();
+            cancelTokens[position] = cancelTokenSources[position].Token;
+            selectedPerson.graduationChanceCalculated -= AddLogMessage;
+            selectedPerson.jobChanceCalculated -= AddLogMessage;
+            selectedPerson.calculationCompleted -= AddLogMessage;
+            selectedPerson.mainProgressUpdated -= updateMainProgressBar;
             calculateButtons[position].Enabled = true;
             cancelButtons[position].Enabled = false;
+            addDeleteButtons[position].Enabled = true;
+            editButtons[position].Enabled = true;
         }
 
         private void updateMainProgressBar(int progressCount, IProgress<int> progress)
         {
             this.mainProgress += progressCount;
-            lock (progress)
+            lock (MainProgressBar)
             {
                 if (progress != null)
                 {
@@ -300,6 +355,59 @@ namespace JobChanceCalculator
             }
         }
 
- 
+        private async void CancelButton1_Click(object sender, EventArgs e)
+        {
+            await this.HandleCancellation(0);
+        }
+
+        private async void CancelButton2_Click(object sender, EventArgs e)
+        {
+            await this.HandleCancellation(1);
+        }
+
+        private async void CancelButton3_Click(object sender, EventArgs e)
+        {
+            await this.HandleCancellation(2);
+        }
+
+        private async void CancelButton4_Click(object sender, EventArgs e)
+        {
+            await this.HandleCancellation(3);
+        }
+
+        private async void CancelButton5_Click(object sender, EventArgs e)
+        {
+            await this.HandleCancellation(4);
+        }
+
+        private async void CancelButton6_Click(object sender, EventArgs e)
+        {
+            await this.HandleCancellation(5);
+        }
+
+        private async void CancelButton7_Click(object sender, EventArgs e)
+        {
+            await this.HandleCancellation(6);
+        }
+
+        private async void CancelButton8_Click(object sender, EventArgs e)
+        {
+            await this.HandleCancellation(7);
+        }
+
+        private async void CancelButton9_Click(object sender, EventArgs e)
+        {
+            await this.HandleCancellation(8);
+        }
+
+        private async void CancelButton10_Click(object sender, EventArgs e)
+        {
+            await this.HandleCancellation(9);
+        }
+
+        private async Task HandleCancellation(int position)
+        {
+            this.cancelTokenSources[position].Cancel();
+        }
     }
 }

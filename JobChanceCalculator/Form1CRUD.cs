@@ -79,6 +79,8 @@ namespace JobChanceCalculator
             {
                 if(this.validateInput(position))
                 {
+                    firstNameTextBoxes[position].Enabled = false;
+                    lastNameTextBoxes[position].Enabled = false;
                     addDeleteButtons[position].Enabled = false;
                     await dbConn.AddPerson(firstNameTextBoxes[position].Text, lastNameTextBoxes[position].Text);
                     Person personAdded = await dbConn.FindAddedPerson();
