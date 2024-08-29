@@ -136,17 +136,16 @@ namespace JobChanceCalculator
 
         public async Task AddPerson(string firstName, string lastName)
         {
-            Person personAdded;
-            Task additionTask = Task.Run(() =>
-            {
-                this.PerformNonQuery(@$"INSERT INTO person (first_name, last_name) VALUES ('{firstName}', '{lastName}')");
-                Thread.Sleep(2000);
-            });
-            await additionTask;
-            if (PersonAdded != null)
-            {
-                this.PersonAdded($"{firstName} {lastName} added.");
-            }
+                Task additionTask = Task.Run(() =>
+                {
+                    this.PerformNonQuery(@$"INSERT INTO person (first_name, last_name) VALUES ('{firstName}', '{lastName}')");
+                    Thread.Sleep(2000);
+                });
+                await additionTask;
+                if (PersonAdded != null)
+                {
+                    this.PersonAdded($"{firstName} {lastName} added.");
+                }
         }
 
         public async Task UpdatePerson(Person person, string firstName, string lastName)
@@ -230,8 +229,9 @@ namespace JobChanceCalculator
         {
             Task deleteAllTask = Task.Run(() =>
             {
-                this.PerformNonQuery($"DELETE FROM person");
                 Thread.Sleep(2000);
+                this.PerformNonQuery($"DELETE FROM person");
+                
             });
             await deleteAllTask;
             if (PeopleDeleted != null)

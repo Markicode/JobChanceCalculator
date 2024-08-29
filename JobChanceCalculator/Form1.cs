@@ -1,3 +1,5 @@
+using Microsoft.Data.Sqlite;
+
 namespace JobChanceCalculator
 {
     public partial class Form1 : Form
@@ -21,7 +23,6 @@ namespace JobChanceCalculator
         List<CancellationToken> cancelTokens;
         Person?[] peopleArray;
         Assignment assignment;
-        int numberOfCalculations;
         int mainProgress;
 
         public Form1()
@@ -114,6 +115,7 @@ namespace JobChanceCalculator
 
             this.mainProgress = 0;
             this.taskCanceled += AddLogMessage;
+            this.exceptionOccured += AddLogMessage;
 
             for (int i = 0; i < 10; i++)
             {
@@ -128,31 +130,32 @@ namespace JobChanceCalculator
         }
 
         public delegate void taskCanceledDelegate(string message);
+        public delegate void exceptionOccuredDelegate(string message);
 
         public event taskCanceledDelegate taskCanceled;
+        public event exceptionOccuredDelegate exceptionOccured;
 
         private async void ButtonStart_Click(object sender, EventArgs e)
         {
-            await this.Initialize();
+            try
+            {
+                await this.Initialize();
+            }
+            catch (Exception ex)
+            {
+                this.HandleException(ex, 0, "Initialize");
+            }
             ButtonStart.Enabled = false;
         }
 
         private void AddLogMessage(string message)
         {
-            try
-            {
                 if (LogTextBox.InvokeRequired)
                 {
                     LogTextBox.Invoke(new Action<string>(AddLogMessage), new object[] { message });
                     return;
                 }
                 LogTextBox.AppendText($"{DateTime.Now} - {message} \r\n");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-
         }
 
         private async Task Initialize()
@@ -161,7 +164,7 @@ namespace JobChanceCalculator
             await dbConn.SetupDb();
             await dbConn.FillDb();
             peopleList = await assignment.AssignPeopleAsync();
-
+            
             for (int i = 0; i < peopleList.Count; i++)
             {
                 peopleArray[i] = peopleList[i];
@@ -172,6 +175,7 @@ namespace JobChanceCalculator
                 calculateButtons[i].Enabled = true;
                 firstNameTextBoxes[i].Visible = false;
                 lastNameTextBoxes[i].Visible = false;
+                addDeleteButtons[i].Text = "Delete";
             }
             for (int i = peopleList.Count; i < 10; i++)
             {
@@ -225,56 +229,129 @@ namespace JobChanceCalculator
             {
                 return true;
             }
+
+            // TODO: implement regex for user input
         }
 
         private async void CalculateButton1_Click(object sender, EventArgs e)
         {
-            await HandleCalculation(0);
+            try
+            {
+                await HandleCalculation(0);
+            }
+            catch (Exception ex)
+            {
+                this.HandleException(ex, 1, "Calculate");
+            }
+            
         }
 
         private async void CalculateButton2_Click(object sender, EventArgs e)
         {
-            await HandleCalculation(1);
+            try
+            {
+                await HandleCalculation(1);
+            }
+            catch (Exception ex)
+            {
+                this.HandleException(ex, 2, "Calculate");
+            }
         }
 
         private async void CalculateButton3_Click(object sender, EventArgs e)
         {
-            await HandleCalculation(2);
+            try
+            {
+                await HandleCalculation(2);
+            }
+            catch (Exception ex)
+            {
+                this.HandleException(ex, 3, "Calculate");
+            }
         }
 
         private async void CalculateButton4_Click(object sender, EventArgs e)
         {
-            await HandleCalculation(3);
+            try
+            {
+                await HandleCalculation(3);
+            }
+            catch (Exception ex)
+            {
+                this.HandleException(ex, 4, "Calculate");
+            }
         }
 
         private async void CalculateButton5_Click(object sender, EventArgs e)
         {
-            await HandleCalculation(4);
+            try
+            {
+                await HandleCalculation(4);
+            }
+            catch (Exception ex)
+            {
+                this.HandleException(ex, 5, "Calculate");
+            }
         }
 
         private async void CalculateButton6_Click(object sender, EventArgs e)
         {
-            await HandleCalculation(5);
+            try
+            {
+                await HandleCalculation(5);
+            }
+            catch (Exception ex)
+            {
+                this.HandleException(ex, 6, "Calculate");
+            }
         }
 
         private async void CalculateButton7_Click(object sender, EventArgs e)
         {
-            await HandleCalculation(6);
+            try
+            {
+                await HandleCalculation(6);
+            }
+            catch (Exception ex)
+            {
+                this.HandleException(ex, 7, "Calculate");
+            }
         }
 
         private async void CalculateButton8_Click(object sender, EventArgs e)
         {
-            await HandleCalculation(7);
+            try
+            {
+                await HandleCalculation(7);
+            }
+            catch (Exception ex)
+            {
+                this.HandleException(ex, 8, "Calculate");
+            }
         }
 
         private async void CalculateButton9_Click(object sender, EventArgs e)
         {
-            await HandleCalculation(8);
+            try
+            {
+                await HandleCalculation(8);
+            }
+            catch (Exception ex)
+            {
+                this.HandleException(ex, 9, "Calculate");
+            }
         }
 
         private async void CalculateButton10_Click(object sender, EventArgs e)
         {
-            await HandleCalculation(9);
+            try
+            {
+                await HandleCalculation(9);
+            }
+            catch (Exception ex)
+            {
+                this.HandleException(ex, 10, "Calculate");
+            }
         }
 
 
@@ -308,6 +385,7 @@ namespace JobChanceCalculator
             {
                 this.taskCanceled($"{selectedPerson.firstName} {selectedPerson.lastName}: Calculations canceled.");
             }
+
             if (!cancelTokens[position].IsCancellationRequested)
             {
                 if (progressBars[position].Value == progressBars[position].Maximum)
@@ -426,8 +504,37 @@ namespace JobChanceCalculator
                 cancelButtons[i].Enabled = false;
                 cancelTokenSources[i].Cancel();
             }
-            await dbConn.DeleteAll();
-            await this.Initialize();
+            try
+            {
+                await dbConn.DeleteAll();
+                await this.Initialize();
+            }
+            catch (Exception ex)
+            {
+                this.HandleException(ex, 0, "rebuild");
+            }
+        }
+
+        private void HandleException(Exception e, int position, string operation)
+        {
+            if(e is SqliteException)
+            {
+                if (position == 0)
+                {
+                    MessageBox.Show($"SQL Error found on: Main during operation \"{operation}\".");
+                    this.exceptionOccured(e.Message);
+                }
+                else
+                {
+                    MessageBox.Show($"SQL Error found on position {position.ToString()} during operation \"{operation}\".");
+                    this.exceptionOccured(e.Message);
+                }
+            }
+            if(e is IndexOutOfRangeException)
+            {
+                MessageBox.Show("Index out of range.");
+            }
+
         }
     }
 }

@@ -60,45 +60,73 @@ namespace JobChanceCalculator
 
         private async Task HandleAddDelete(int position)
         {
+            Person? personAdded = null;
+
             if (peopleArray[position] != null)
             {
                 calculateButtons[position].Enabled = false;
                 addDeleteButtons[position].Enabled = false;
                 editButtons[position].Enabled = false;
-                Person currentPerson = peopleArray[position];
-                await dbConn.DeletePerson(peopleArray[position]);
-                peopleArray[position] = null;
-                addDeleteButtons[position].Text = "Add";
-                addDeleteButtons[position].Enabled = true;
-                firstNameLabels[position].Text = "";
-                lastNameLabels[position].Text = "";
-                firstNameTextBoxes[position].Visible = true;
-                lastNameTextBoxes[position].Visible = true;
+                //Person? currentPerson = peopleArray[position];
+                try
+                {
+                    await dbConn.DeletePerson(peopleArray[position]);
+                    peopleArray[position] = null;
+                    addDeleteButtons[position].Text = "Add";
+                    addDeleteButtons[position].Enabled = true;
+                    firstNameLabels[position].Text = "";
+                    lastNameLabels[position].Text = "";
+                    firstNameTextBoxes[position].Visible = true;
+                    lastNameTextBoxes[position].Visible = true;
+                }
+                catch (Exception e)
+                {
+                    this.HandleException(e, (position+1), "Delete");
+                    calculateButtons[position].Enabled = true;
+                    addDeleteButtons[position].Enabled = true;
+                    editButtons[position].Enabled = true;
+                }
+                
             }
             else
             {
                 if(this.validateInput(position))
                 {
+                    
                     firstNameTextBoxes[position].Enabled = false;
                     lastNameTextBoxes[position].Enabled = false;
                     addDeleteButtons[position].Enabled = false;
-                    await dbConn.AddPerson(firstNameTextBoxes[position].Text, lastNameTextBoxes[position].Text);
-                    Person personAdded = await dbConn.FindAddedPerson();
-                    if (personAdded != null)
+                    try
                     {
-                        peopleArray[position] = personAdded;
-                        editButtons[position].Enabled = true;
-                        addDeleteButtons[position].Text = "Delete";
-                        addDeleteButtons[position].Enabled = true;
-                        firstNameLabels[position].Text = peopleArray[position].firstName;
-                        lastNameLabels[position].Text = peopleArray[position].lastName;
-                        firstNameTextBoxes[position].Text = "";
-                        lastNameTextBoxes[position].Text = "";
-                        firstNameTextBoxes[position].Visible = false;
-                        lastNameTextBoxes[position].Visible = false;
-                        calculateButtons[position].Enabled = true;
+                        await dbConn.AddPerson(firstNameTextBoxes[position].Text, lastNameTextBoxes[position].Text);
+                        personAdded = await dbConn.FindAddedPerson();
+                        if (personAdded != null)
+                        {
+                            peopleArray[position] = personAdded;
+                            editButtons[position].Enabled = true;
+                            addDeleteButtons[position].Text = "Delete";
+                            addDeleteButtons[position].Enabled = true;
+                            firstNameLabels[position].Text = peopleArray[position].firstName;
+                            lastNameLabels[position].Text = peopleArray[position].lastName;
+                            firstNameTextBoxes[position].Text = "";
+                            lastNameTextBoxes[position].Text = "";
+                            firstNameTextBoxes[position].Visible = false;
+                            lastNameTextBoxes[position].Visible = false;
+                            calculateButtons[position].Enabled = true;
+
+                        }
                     }
+                    catch (Exception e)
+                    {
+                        this.HandleException(e, (position + 1), "Add");
+                        firstNameTextBoxes[position].Enabled = true;
+                        lastNameTextBoxes[position].Enabled = true;
+                        addDeleteButtons[position].Enabled = true;
+                    }
+
                     
+                    
+
                 }
             }
         }
@@ -175,21 +203,32 @@ namespace JobChanceCalculator
                     firstNameTextBoxes[position].Enabled = false;
                     lastNameTextBoxes[position].Enabled = false;
                     editButtons[position].Enabled = false;
-                    await dbConn.UpdatePerson(peopleArray[position], firstNameTextBoxes[position].Text, lastNameTextBoxes[position].Text);
-                    peopleArray[position].firstName = firstNameTextBoxes[position].Text;
-                    peopleArray[position].lastName = lastNameTextBoxes[position].Text;
-                    editButtons[position].Text = "Edit";
-                    editButtons[position].Enabled = true;
-                    firstNameLabels[position].Text = peopleArray[position].firstName;
-                    lastNameLabels[position].Text = peopleArray[position].lastName;
-                    addDeleteButtons[position].Enabled = true;
-                    calculateButtons[position].Enabled = true;
-                    firstNameLabels[position].Visible = true;
-                    lastNameLabels[position].Visible = true;
-                    firstNameTextBoxes[position].Visible = false;
-                    lastNameTextBoxes[position].Visible = false;
-                    firstNameTextBoxes[position].Enabled = true;
-                    lastNameTextBoxes[position].Enabled = true;
+                    try
+                    {
+                        await dbConn.UpdatePerson(peopleArray[position], firstNameTextBoxes[position].Text, lastNameTextBoxes[position].Text);
+                        peopleArray[position].firstName = firstNameTextBoxes[position].Text;
+                        peopleArray[position].lastName = lastNameTextBoxes[position].Text;
+                        editButtons[position].Enabled = true;
+                        firstNameLabels[position].Text = peopleArray[position].firstName;
+                        lastNameLabels[position].Text = peopleArray[position].lastName;
+                        addDeleteButtons[position].Enabled = true;
+                        calculateButtons[position].Enabled = true;
+                        firstNameLabels[position].Visible = true;
+                        lastNameLabels[position].Visible = true;
+                        firstNameTextBoxes[position].Visible = false;
+                        lastNameTextBoxes[position].Visible = false;
+                        firstNameTextBoxes[position].Enabled = true;
+                        lastNameTextBoxes[position].Enabled = true;
+                        editButtons[position].Text = "Edit";
+                    }
+                    catch (Exception e)
+                    {
+                        this.HandleException(e, (position + 1), "Edit");
+                        firstNameTextBoxes[position].Enabled = true;
+                        lastNameTextBoxes[position].Enabled = true;
+                        editButtons[position].Enabled = true;
+                    }
+                    
                 }
                 return;
             }
