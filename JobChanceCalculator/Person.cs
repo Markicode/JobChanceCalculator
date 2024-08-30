@@ -17,6 +17,7 @@ namespace JobChanceCalculator
         public double factor { get; set; }
         public string graduate {  get; set; }
         public string job { get; set; }
+        public string cancelOrigin { get; set; }
 
         private static DbConnection DbConn = new DbConnection();
 
@@ -150,6 +151,12 @@ namespace JobChanceCalculator
             {
                 calculationCompleted($"All calculations for {this.firstName} {this.lastName} completed.");
             }
+        }
+
+        public void CancelCalculation(string origin, CancellationTokenSource cts)
+        {
+            cts.Cancel();
+            this.cancelOrigin = origin;
         }
 
     }

@@ -150,12 +150,12 @@ namespace JobChanceCalculator
 
         private void AddLogMessage(string message)
         {
-                if (LogTextBox.InvokeRequired)
-                {
-                    LogTextBox.Invoke(new Action<string>(AddLogMessage), new object[] { message });
-                    return;
-                }
-                LogTextBox.AppendText($"{DateTime.Now} - {message} \r\n");
+            if (LogTextBox.InvokeRequired)
+            {
+                LogTextBox.Invoke(new Action<string>(AddLogMessage), new object[] { message });
+                return;
+            }
+            LogTextBox.AppendText($"{DateTime.Now} - {message} \r\n");
         }
 
         private async Task Initialize()
@@ -164,7 +164,7 @@ namespace JobChanceCalculator
             await dbConn.SetupDb();
             await dbConn.FillDb();
             peopleList = await assignment.AssignPeopleAsync();
-            
+
             for (int i = 0; i < peopleList.Count; i++)
             {
                 peopleArray[i] = peopleList[i];
@@ -243,7 +243,7 @@ namespace JobChanceCalculator
             {
                 this.HandleException(ex, 1, "Calculate");
             }
-            
+
         }
 
         private async void CalculateButton2_Click(object sender, EventArgs e)
@@ -408,22 +408,42 @@ namespace JobChanceCalculator
                 Task sleep = Task.Run(() => Thread.Sleep(100));
                 await sleep;
                 progressBars[position].Value = 0;
+                calculateButtons[position].Enabled = true;
+                cancelButtons[position].Enabled = false;
+                addDeleteButtons[position].Enabled = true;
+                editButtons[position].Enabled = true;
             }
             else
             {
                 MainProgressBar.Maximum -= 10000;
+                graduationLabels[position].Text = "";
+                jobLabels[position].Text = "";
+                factorLabels[position].Text = "";
+                if (selectedPerson.cancelOrigin == "CancelButton")
+                {
+                    calculateButtons[position].Enabled = true;
+                    cancelButtons[position].Enabled = false;
+                    addDeleteButtons[position].Enabled = true;
+                    editButtons[position].Enabled = true;
+                    cancelTokenSources[position].Dispose();
+                    cancelTokenSources[position] = new CancellationTokenSource();
+                    cancelTokens[position] = cancelTokenSources[position].Token;
+                }
+                if (selectedPerson.cancelOrigin == "RebuildButton")
+                {
+                    calculateButtons[position].Enabled = false;
+                    cancelButtons[position].Enabled = false;
+                    addDeleteButtons[position].Enabled = false;
+                    editButtons[position].Enabled = false;
+                }
             }
-            cancelTokenSources[position].Dispose();
-            cancelTokenSources[position] = new CancellationTokenSource();
-            cancelTokens[position] = cancelTokenSources[position].Token;
+            
             selectedPerson.graduationChanceCalculated -= AddLogMessage;
             selectedPerson.jobChanceCalculated -= AddLogMessage;
             selectedPerson.calculationCompleted -= AddLogMessage;
             selectedPerson.mainProgressUpdated -= updateMainProgressBar;
-            calculateButtons[position].Enabled = true;
-            cancelButtons[position].Enabled = false;
-            addDeleteButtons[position].Enabled = true;
-            editButtons[position].Enabled = true;
+
+
         }
 
         private void updateMainProgressBar(int progressCount, IProgress<int> progress)
@@ -490,7 +510,12 @@ namespace JobChanceCalculator
 
         private async Task HandleCancellation(int position)
         {
-            this.cancelTokenSources[position].Cancel();
+            Person selectedPerson = peopleArray[position];
+            if (selectedPerson != null)
+            {
+                Task cancelTask = Task.Run(() => selectedPerson.CancelCalculation("CancelButton", cancelTokenSources[position]));
+                await cancelTask;
+            }
         }
 
         private async void RebuildButton_Click(object sender, EventArgs e)
@@ -498,11 +523,22 @@ namespace JobChanceCalculator
             RebuildButton.Enabled = false;
             for (int i = 0; i < 10; i++)
             {
+                if (peopleArray[i] != null)
+                {
+                    peopleArray[i].CancelCalculation("RebuildButton", cancelTokenSources[i]);
+                }
+            }
+
+            for (int i = 0; i < 10; i++)
+            {
                 editButtons[i].Enabled = false;
                 addDeleteButtons[i].Enabled = false;
                 calculateButtons[i].Enabled = false;
                 cancelButtons[i].Enabled = false;
-                cancelTokenSources[i].Cancel();
+                firstNameTextBoxes[i].Visible = false;
+                lastNameTextBoxes[i].Visible = false;
+                firstNameTextBoxes[i].Text = "";
+                lastNameTextBoxes[i].Text = "";
             }
             try
             {
@@ -517,7 +553,7 @@ namespace JobChanceCalculator
 
         private void HandleException(Exception e, int position, string operation)
         {
-            if(e is SqliteException)
+            if (e is SqliteException)
             {
                 if (position == 0)
                 {
@@ -530,10 +566,15 @@ namespace JobChanceCalculator
                     this.exceptionOccured(e.Message);
                 }
             }
-            if(e is IndexOutOfRangeException)
+            if (e is IndexOutOfRangeException)
             {
                 MessageBox.Show("Index out of range.");
             }
+
+        }
+
+        private void GraduationHeaderLabel1_Click(object sender, EventArgs e)
+        {
 
         }
     }

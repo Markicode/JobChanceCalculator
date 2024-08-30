@@ -1157,17 +1157,18 @@
             // 
             GraduationHeaderLabel1.AutoSize = true;
             GraduationHeaderLabel1.Font = new Font("Yu Gothic UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            GraduationHeaderLabel1.Location = new Point(867, 57);
+            GraduationHeaderLabel1.Location = new Point(883, 56);
             GraduationHeaderLabel1.Name = "GraduationHeaderLabel1";
             GraduationHeaderLabel1.Size = new Size(73, 17);
             GraduationHeaderLabel1.TabIndex = 65;
             GraduationHeaderLabel1.Text = "Graduation";
+            GraduationHeaderLabel1.Click += GraduationHeaderLabel1_Click;
             // 
             // GraduationHeaderLabel2
             // 
             GraduationHeaderLabel2.AutoSize = true;
             GraduationHeaderLabel2.Font = new Font("Yu Gothic UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            GraduationHeaderLabel2.Location = new Point(936, 57);
+            GraduationHeaderLabel2.Location = new Point(951, 56);
             GraduationHeaderLabel2.Name = "GraduationHeaderLabel2";
             GraduationHeaderLabel2.Size = new Size(53, 17);
             GraduationHeaderLabel2.TabIndex = 66;
@@ -1187,7 +1188,7 @@
             // 
             FactorHeaderLabel.AutoSize = true;
             FactorHeaderLabel.Font = new Font("Yu Gothic UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            FactorHeaderLabel.Location = new Point(1178, 56);
+            FactorHeaderLabel.Location = new Point(1162, 56);
             FactorHeaderLabel.Name = "FactorHeaderLabel";
             FactorHeaderLabel.Size = new Size(46, 17);
             FactorHeaderLabel.TabIndex = 69;
