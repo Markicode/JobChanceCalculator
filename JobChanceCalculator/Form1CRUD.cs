@@ -10,52 +10,82 @@ namespace JobChanceCalculator
     {
         private async void AddDeleteButton1_Click(object sender, EventArgs e)
         {
-            await HandleAddDelete(0);
+            Task addDelete1 = HandleAddDelete(0);
+            activeTasks.Add(addDelete1);    
+            await addDelete1;
+            activeTasks.Remove(addDelete1);
         }
 
         private async void AddDeleteButton2_Click(object sender, EventArgs e)
         {
-            await HandleAddDelete(1);
+            Task addDelete2 = HandleAddDelete(1);
+            activeTasks.Add(addDelete2);
+            await addDelete2    ;
+            activeTasks.Remove(addDelete2);
         }
 
         private async void AddDeleteButton3_Click(object sender, EventArgs e)
         {
-            await HandleAddDelete(2);
+            Task addDelete3 = HandleAddDelete(2);
+            activeTasks.Add(addDelete3);
+            await addDelete3;
+            activeTasks.Remove(addDelete3);
         }
 
         private async void AddDeleteButton4_Click(object sender, EventArgs e)
         {
-            await HandleAddDelete(3);
+            Task addDelete4 = HandleAddDelete(3);
+            activeTasks.Add(addDelete4);
+            await addDelete4;
+            activeTasks.Remove(addDelete4);
         }
 
         private async void AddDeleteButton5_Click(object sender, EventArgs e)
         {
-            await HandleAddDelete(4);
+            Task addDelete5 = HandleAddDelete(4);
+            activeTasks.Add(addDelete5);
+            await addDelete5;
+            activeTasks.Remove(addDelete5);
         }
 
         private async void AddDeleteButton6_Click(object sender, EventArgs e)
         {
-            await HandleAddDelete(5);
+            Task addDelete6 = HandleAddDelete(5);
+            activeTasks.Add(addDelete6);
+            await addDelete6;
+            activeTasks.Remove(addDelete6);
         }
 
         private async void AddDeleteButton7_Click(object sender, EventArgs e)
         {
-            await HandleAddDelete(6);
+            Task addDelete7 = HandleAddDelete(6);
+            activeTasks.Add(addDelete7);
+            await addDelete7;
+            activeTasks.Remove(addDelete7);
         }
 
         private async void AddDeleteButton8_Click(object sender, EventArgs e)
         {
-            await HandleAddDelete(7);
+            Task addDelete8 = HandleAddDelete(7);
+            activeTasks.Add(addDelete8);
+            await addDelete8;
+            activeTasks.Remove(addDelete8);
         }
 
         private async void AddDeleteButton9_Click(object sender, EventArgs e)
         {
-            await HandleAddDelete(8);
+            Task addDelete9 = HandleAddDelete(8);
+            activeTasks.Add(addDelete9);
+            await addDelete9;
+            activeTasks.Remove(addDelete9);
         }
 
         private async void AddDeleteButton10_Click(object sender, EventArgs e)
         {
-            await HandleAddDelete(9);
+            Task addDelete10 = HandleAddDelete(9);
+            activeTasks.Add(addDelete10);
+            await addDelete10;
+            activeTasks.Remove(addDelete10);
         }
 
         private async Task HandleAddDelete(int position)
@@ -76,6 +106,8 @@ namespace JobChanceCalculator
                     addDeleteButtons[position].Enabled = true;
                     firstNameLabels[position].Text = "";
                     lastNameLabels[position].Text = "";
+                    firstNameTextBoxes[position].Text = "";
+                    lastNameTextBoxes[position].Text = "";
                     firstNameTextBoxes[position].Visible = true;
                     lastNameTextBoxes[position].Visible = true;
                 }
@@ -133,52 +165,82 @@ namespace JobChanceCalculator
 
         private async void EditSubmitButton1_Click(object sender, EventArgs e)
         {
-            await HandleEdit(0);
+            Task editSubmit1 = HandleEdit(0);
+            activeTasks.Add(editSubmit1);
+            await editSubmit1;
+            activeTasks.Remove(editSubmit1);
         }
 
         private async void EditSubmitButton2_Click(object sender, EventArgs e)
         {
-            await HandleEdit(1);
+            Task editSubmit2 = HandleEdit(1);
+            activeTasks.Add(editSubmit2);
+            await editSubmit2;
+            activeTasks.Remove(editSubmit2);
         }
 
         private async void EditSubmitButton3_Click(object sender, EventArgs e)
         {
-            await HandleEdit(2);
+            Task editSubmit3 = HandleEdit(2);
+            activeTasks.Add(editSubmit3);
+            await editSubmit3;
+            activeTasks.Remove(editSubmit3);
         }
 
         private async void EditSubmitButton4_Click(object sender, EventArgs e)
         {
-            await HandleEdit(3);
+            Task editSubmit4 = HandleEdit(3);
+            activeTasks.Add(editSubmit4);
+            await editSubmit4;
+            activeTasks.Remove(editSubmit4);
         }
 
         private async void EditSubmitButton5_Click(object sender, EventArgs e)
         {
-            await HandleEdit(4);
+            Task editSubmit5 = HandleEdit(4);
+            activeTasks.Add(editSubmit5);
+            await editSubmit5;
+            activeTasks.Remove(editSubmit5);
         }
 
         private async void EditSubmitButton6_Click(object sender, EventArgs e)
         {
-            await HandleEdit(5);
+            Task editSubmit6 = HandleEdit(5);
+            activeTasks.Add(editSubmit6);
+            await editSubmit6;
+            activeTasks.Remove(editSubmit6);
         }
 
         private async void EditSubmitButton7_Click(object sender, EventArgs e)
         {
-            await HandleEdit(6);
+            Task editSubmit7 = HandleEdit(6);
+            activeTasks.Add(editSubmit7);
+            await editSubmit7;
+            activeTasks.Remove(editSubmit7);
         }
 
         private async void EditSubmitButton8_Click(object sender, EventArgs e)
         {
-            await HandleEdit(7);
+            Task editSubmit8 = HandleEdit(7);
+            activeTasks.Add(editSubmit8);
+            await editSubmit8;
+            activeTasks.Remove(editSubmit8);
         }
 
         private async void EditSubmitButton9_Click(object sender, EventArgs e)
         {
-            await HandleEdit(8);
+            Task editSubmit9 = HandleEdit(8);
+            activeTasks.Add(editSubmit9);
+            await editSubmit9;
+            activeTasks.Remove(editSubmit9);
         }
 
         private async void EditSubmitButton10_Click(object sender, EventArgs e)
         {
-            await HandleEdit(9);
+            Task editSubmit10 = HandleEdit(9);
+            activeTasks.Add(editSubmit10);
+            await editSubmit10;
+            activeTasks.Remove(editSubmit10);
         }
 
         private async Task HandleEdit(int position)

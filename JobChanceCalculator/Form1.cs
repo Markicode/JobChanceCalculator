@@ -1,4 +1,5 @@
 using Microsoft.Data.Sqlite;
+using System.Text.RegularExpressions;
 
 namespace JobChanceCalculator
 {
@@ -21,6 +22,7 @@ namespace JobChanceCalculator
         List<Progress<int>> progresses;
         List<CancellationTokenSource> cancelTokenSources;
         List<CancellationToken> cancelTokens;
+        List<Task> activeTasks;
         Person?[] peopleArray;
         Assignment assignment;
         int mainProgress;
@@ -38,6 +40,7 @@ namespace JobChanceCalculator
             dbConn.PeopleDeleted += AddLogMessage;
 
             this.peopleList = new List<Person>();
+            this.activeTasks = new List<Task>();
             this.peopleArray = new Person?[10];
 
             Progress<int> progress1 = new Progress<int>(percent =>
@@ -175,16 +178,31 @@ namespace JobChanceCalculator
                 calculateButtons[i].Enabled = true;
                 firstNameTextBoxes[i].Visible = false;
                 lastNameTextBoxes[i].Visible = false;
+                firstNameTextBoxes[i].Enabled = true;
+                lastNameTextBoxes[i].Enabled = true;
                 addDeleteButtons[i].Text = "Delete";
             }
             for (int i = peopleList.Count; i < 10; i++)
             {
+                firstNameTextBoxes[i].Enabled = true;
+                lastNameTextBoxes[i].Enabled = true;
                 addDeleteButtons[i].Text = "Add";
                 addDeleteButtons[i].Enabled = true;
                 firstNameTextBoxes[i].Visible = true;
                 lastNameTextBoxes[i].Visible = true;
                 calculateButtons[i].Enabled = false;
             }
+
+            for(int i = 0; i<10; i++)
+            {
+                graduationLabels[i].Text = "";
+                jobLabels[i].Text = "";
+                factorLabels[i].Text = "";
+                firstNameLabels[i].Visible=true;
+                lastNameLabels[i].Visible=true;
+                editButtons[i].Text = "Edit";
+            }
+
             CancellationTokenSource cts1 = new CancellationTokenSource();
             CancellationTokenSource cts2 = new CancellationTokenSource();
             CancellationTokenSource cts3 = new CancellationTokenSource();
@@ -220,14 +238,23 @@ namespace JobChanceCalculator
         {
             string firstName = firstNameTextBoxes[textBoxNumber].Text;
             string lastName = lastNameTextBoxes[textBoxNumber].Text;
-            if (firstName == "" || lastName == "")
+            string pattern = @"^[\w\-\s]+$";
+            if (firstName != "" && lastName != "")
             {
-                MessageBox.Show("Enter a first and a last name.");
-                return false;
+                if (Regex.IsMatch(firstName, pattern) && Regex.IsMatch(lastName, pattern))
+                {
+                    return true;
+                }
+                else
+                {
+                    MessageBox.Show("Enter valid characters (a-z 0-9 -)");
+                    return false;
+                }
             }
             else
             {
-                return true;
+                MessageBox.Show("Enter a first and a last name.");
+                return false;
             }
 
             // TODO: implement regex for user input
@@ -235,123 +262,163 @@ namespace JobChanceCalculator
 
         private async void CalculateButton1_Click(object sender, EventArgs e)
         {
+            Task calculate1 = HandleCalculation(0);
+            activeTasks.Add(calculate1);
             try
             {
-                await HandleCalculation(0);
+                await calculate1;
             }
             catch (Exception ex)
             {
                 this.HandleException(ex, 1, "Calculate");
+                activeTasks.Remove(calculate1);
             }
+            activeTasks.Remove(calculate1);
 
         }
 
         private async void CalculateButton2_Click(object sender, EventArgs e)
         {
+            Task calculate2 = HandleCalculation(1);
+            activeTasks.Add(calculate2);
             try
             {
-                await HandleCalculation(1);
+                await calculate2;
             }
             catch (Exception ex)
             {
                 this.HandleException(ex, 2, "Calculate");
+                activeTasks.Remove(calculate2);
             }
+            activeTasks.Remove(calculate2);
         }
 
         private async void CalculateButton3_Click(object sender, EventArgs e)
         {
+            Task calculate3 = HandleCalculation(2);
+            activeTasks.Add(calculate3);
             try
             {
-                await HandleCalculation(2);
+                await calculate3;
             }
             catch (Exception ex)
             {
                 this.HandleException(ex, 3, "Calculate");
+                activeTasks.Remove(calculate3);
             }
+            activeTasks.Remove(calculate3);
         }
 
         private async void CalculateButton4_Click(object sender, EventArgs e)
         {
+            Task calculate4 = HandleCalculation(3);
+            activeTasks.Add(calculate4);
             try
             {
-                await HandleCalculation(3);
+                await calculate4;
             }
             catch (Exception ex)
             {
                 this.HandleException(ex, 4, "Calculate");
+                activeTasks.Remove(calculate4);
             }
+            activeTasks.Remove(calculate4);
         }
 
         private async void CalculateButton5_Click(object sender, EventArgs e)
         {
+            Task calculate5 = HandleCalculation(4);
+            activeTasks.Add(calculate5);
             try
             {
-                await HandleCalculation(4);
+                await calculate5;
             }
             catch (Exception ex)
             {
                 this.HandleException(ex, 5, "Calculate");
+                activeTasks.Remove(calculate5);
             }
+            activeTasks.Remove(calculate5);
         }
 
         private async void CalculateButton6_Click(object sender, EventArgs e)
         {
+            Task calculate6 = HandleCalculation(5);
+            activeTasks.Add(calculate6);
             try
             {
-                await HandleCalculation(5);
+                await calculate6;
             }
             catch (Exception ex)
             {
                 this.HandleException(ex, 6, "Calculate");
+                activeTasks.Remove(calculate6);
             }
+            activeTasks.Remove(calculate6);
         }
 
         private async void CalculateButton7_Click(object sender, EventArgs e)
         {
+            Task calculate7 = HandleCalculation(6);
+            activeTasks.Add(calculate7);
             try
             {
-                await HandleCalculation(6);
+                await calculate7;
             }
             catch (Exception ex)
             {
                 this.HandleException(ex, 7, "Calculate");
+                activeTasks.Remove(calculate7);
             }
+            activeTasks.Remove(calculate7);
         }
 
         private async void CalculateButton8_Click(object sender, EventArgs e)
         {
+            Task calculate8 = HandleCalculation(7);
+            activeTasks.Add(calculate8);
             try
             {
-                await HandleCalculation(7);
+                await calculate8;
             }
             catch (Exception ex)
             {
                 this.HandleException(ex, 8, "Calculate");
+                activeTasks.Remove(calculate8);
             }
+            activeTasks.Remove(calculate8);
         }
 
         private async void CalculateButton9_Click(object sender, EventArgs e)
         {
+            Task calculate9 = HandleCalculation(8);
+            activeTasks.Add(calculate9);
             try
             {
-                await HandleCalculation(8);
+                await calculate9;
             }
             catch (Exception ex)
             {
                 this.HandleException(ex, 9, "Calculate");
+                activeTasks.Remove(calculate9);
             }
+            activeTasks.Remove(calculate9);
         }
 
         private async void CalculateButton10_Click(object sender, EventArgs e)
         {
+            Task calculate10 = HandleCalculation(9);
+            activeTasks.Add(calculate10);
             try
             {
-                await HandleCalculation(9);
+                await calculate10;
             }
             catch (Exception ex)
             {
                 this.HandleException(ex, 10, "Calculate");
+                activeTasks.Remove(calculate10);
             }
+            activeTasks.Remove(calculate10);
         }
 
 
@@ -529,6 +596,8 @@ namespace JobChanceCalculator
                 }
             }
 
+            await Task.WhenAll(activeTasks);
+         
             for (int i = 0; i < 10; i++)
             {
                 editButtons[i].Enabled = false;
