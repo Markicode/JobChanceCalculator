@@ -254,6 +254,8 @@ namespace JobChanceCalculator
                 editButtons[position].Text = "Submit";
                 firstNameLabels[position].Visible = false;
                 lastNameLabels[position].Visible = false;
+                firstNameTextBoxes[position].Enabled = true;
+                lastNameTextBoxes[position].Enabled = true;
                 firstNameTextBoxes[position].Visible = true;
                 lastNameTextBoxes[position].Visible = true;
                 return;
