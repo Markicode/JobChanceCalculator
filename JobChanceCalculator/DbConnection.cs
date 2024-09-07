@@ -9,6 +9,10 @@ using DbUtil;
 
 namespace JobChanceCalculator
 {
+    /// <summary>
+    /// The DbConnection class uses the Database class from the DbUtil DLL to setup a database and perform several SQL (non)queries.
+    /// Events are added to register completed queries.
+    /// </summary>
     internal class DbConnection
     {
         Database database;
@@ -28,9 +32,12 @@ namespace JobChanceCalculator
             this.database = new Database("Careerpath");
         }
 
+        /// <summary>
+        /// Task responsible for setting up the applications database by constructing the tables.
+        /// </summary>
         public Task SetupDb()
         {
-            Task t = Task.Run(() =>
+            Task setupTask = Task.Run(() =>
             {
                 // Create tables in case they dont exist.
                 database.PerformNonQuery(@"
@@ -49,14 +56,18 @@ namespace JobChanceCalculator
             id INTEGER PRIMARY KEY,
             profession_name VARCHAR(16) NOT NULL)");
             });
-            return t;
+            return setupTask;
         }
 
+        /// <summary>
+        /// Task responsible for adding content to the applications database.
+        /// Before adding rows to the tables, the tables are checked for content.
+        /// </summary>
+        /// <returns></returns>
         public Task FillDb()
         {
-            Task t = Task.Run(() =>
+            Task fillTask = Task.Run(() =>
             {
-                Database database = new Database("Careerpath");
                 List<object> testList = new List<object>();
                 testList = database.PerformQuery(@"SELECT * FROM person");
                 if (testList.Count == 0)
@@ -107,19 +118,32 @@ namespace JobChanceCalculator
                 ('Teacher')");
                 }
             });
-            return t;
+            return fillTask;
         }
 
+        /// <summary>
+        /// Function using the Database class to perform a query.
+        /// </summary>
+        /// <param name="queryStatement"></param>
+        /// <returns>List of objects</returns>
         public List<object> PerformQuery(string queryStatement)
         {
             return this.database.PerformQuery(queryStatement);
         }
 
+        /// <summary>
+        /// Function using the Database class to perform a non query.
+        /// </summary>
+        /// <param name="nonQueryStatement"></param>
         public void PerformNonQuery(string nonQueryStatement)
         {
             this.database.PerformNonQuery(nonQueryStatement);
         }
 
+        /// <summary>
+        /// Task deleting a person from the database and raising the PersonDeleted event on completion.
+        /// </summary>
+        /// <param name="person"></param>
         public async Task DeletePerson(Person person)
         {
             Task deletionTask = Task.Run(() =>
@@ -134,6 +158,11 @@ namespace JobChanceCalculator
             }
         }
 
+        /// <summary>
+        /// Task adding a person to the database and raising the PersonAdded event on completion.
+        /// </summary>
+        /// <param name="firstName"></param>
+        /// <param name="lastName"></param>
         public async Task AddPerson(string firstName, string lastName)
         {
                 Task additionTask = Task.Run(() =>
@@ -148,6 +177,12 @@ namespace JobChanceCalculator
                 }
         }
 
+        /// <summary>
+        /// Task updating person info in the database and raising the PersonUpdated event on completion.
+        /// </summary>
+        /// <param name="person"></param>
+        /// <param name="firstName"></param>
+        /// <param name="lastName"></param>
         public async Task UpdatePerson(Person person, string firstName, string lastName)
         {
             Task updateTask = Task.Run(() =>
@@ -162,6 +197,11 @@ namespace JobChanceCalculator
             }
         }
 
+        /// <summary>
+        /// Task used to make a Person object with the information stored in the database.
+        /// To provide the object with the auto incremented id, the latest entry is retrieved from the database. 
+        /// </summary>
+        /// <returns>Person</returns>
         public async Task<Person> FindAddedPerson()
         {
             Person person = null;
@@ -171,15 +211,11 @@ namespace JobChanceCalculator
             return person;
         }
 
-        public async Task<Person> FindPerson(int id)
-        {
-            Person person = null;
-            Task<Person?> retrievePersonTask = Task.Run(() => RetrievePerson(id)
-            );
-            person = await retrievePersonTask;
-            return person;
-        }
-
+        /// <summary>
+        /// Function that takes an id parameter to get information from the database and make a Person object.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Person</returns>
         public Person? RetrievePerson(int id)
         {
             List<object> result = this.PerformQuery(@$"SELECT * FROM person WHERE id='{id}'");
@@ -195,6 +231,10 @@ namespace JobChanceCalculator
             }
         }
 
+        /// <summary>
+        /// Function that retrieves the id of the latest entry in the person table from the database.
+        /// </summary>
+        /// <returns>int id</returns>
         public int RetrieveLatestEntry()
         {
             List<object> result = this.PerformQuery(@"SELECT last_insert_rowid() FROM person");
@@ -203,6 +243,10 @@ namespace JobChanceCalculator
             return id;
         }
 
+        /// <summary>
+        /// Database query method returning all entries from the educations table.
+        /// </summary>
+        /// <returns>List of string objects</returns>
         public List<string> GetEducations()
         {
             List<string> educations = new List<string>();
@@ -214,6 +258,10 @@ namespace JobChanceCalculator
             return educations;
         }
 
+        /// <summary>
+        /// Database query method returning all entries from the profession table.
+        /// </summary>
+        /// <returns>List of string objects</returns>
         public List<string> GetProfessions()
         {
             List<string> professions = new List<string>();
@@ -225,6 +273,10 @@ namespace JobChanceCalculator
             return professions;
         }
 
+        /// <summary>
+        /// Task responsible for the deletion of all entries in the person table. On completion the PeopleDeleted event is raised. 
+        /// </summary>
+        /// <returns></returns>
         public async Task DeleteAll()
         {
             Task deleteAllTask = Task.Run(() =>

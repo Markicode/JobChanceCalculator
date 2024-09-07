@@ -97,7 +97,7 @@ namespace JobChanceCalculator
                 calculateButtons[position].Enabled = false;
                 addDeleteButtons[position].Enabled = false;
                 editButtons[position].Enabled = false;
-                //Person? currentPerson = peopleArray[position];
+
                 try
                 {
                     await dbConn.DeletePerson(peopleArray[position]);

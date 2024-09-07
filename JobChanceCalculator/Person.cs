@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace JobChanceCalculator
 {
+    /// <summary>
+    /// The Person class represents a person whose graduation and job chances can be calculated. All data tied to a person are stored in the object.
+    /// </summary>
     internal class Person
     {
         public int id {  get; set; }
@@ -31,6 +34,12 @@ namespace JobChanceCalculator
         public event CalculationCompletedDelegate calculationCompleted;
         public event MainProgressUpdatedDelegate mainProgressUpdated;
 
+        /// <summary>
+        /// Constructor for the Person class. 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="firstName"></param>
+        /// <param name="lastName"></param>
         public Person(int id, string firstName, string lastName) 
         {
             this.id = id;
@@ -39,6 +48,13 @@ namespace JobChanceCalculator
             this.factor = 0;
         }
 
+        /// <summary>
+        /// Function calculating random graduation and job chances, storing the results in the object. 
+        /// The progress of the calculations is reported to the progress bar tied to this object, and to the main progress bar.
+        /// </summary>
+        /// <param name="progress"></param>
+        /// <param name="progressMain"></param>
+        /// <param name="token"></param>
         public void CalculateChances(IProgress<int> progress, IProgress<int> progressMain, CancellationToken token)
         {
             List<string> educations = DbConn.GetEducations();
@@ -49,12 +65,19 @@ namespace JobChanceCalculator
 
             Random random = new Random();
 
+            // Loop of 10 iterations. Each iteration calculates a graduation and job chance for all entries from the education and profession db tables.
+            // And a factor is calculated.
             for (int i = 0; i < 10; i++)
             {
+                // Within each of the 10 i-iterations, both the graduation and the job chance calculations are provided with a random number.
+                // This number is used to iterate and sleep over, to simulate an amount of time that the calculations cost.
+                // These iterations are also used to update the progress bars, and check if a cancel request is made.
                 int sleep1 = random.Next(50, 500);
                 for (int j = 1; j < sleep1; j++)
                 {
                     Thread.Sleep(1);
+                    // Every 10 iterations the progress bar connected to this object is updated and the MainProgressUpdated event is raised.
+                    // The main progress bar is subscribed in the form class and updated from there.
                     if (j % 10 == 0)
                     {
                         if (token.IsCancellationRequested)
@@ -83,6 +106,7 @@ namespace JobChanceCalculator
                             
                     }
                 }
+
                 double graduationChance = random.NextDouble();
                 if(graduationChanceCalculated != null)
                 {
@@ -120,6 +144,7 @@ namespace JobChanceCalculator
                         }
                     }
                 }
+
                 double professionChance = random.NextDouble();
                 if (jobChanceCalculated != null)
                 {
@@ -128,7 +153,8 @@ namespace JobChanceCalculator
 
                 currentFactor = graduationChance * professionChance;
                 counterDifference = ((i + 1) * 1000) - progressCounter;
-
+                // After finishing the calculations in a i-iteration, the progresscounter is updated to 1000 times the iteration to make sure 
+                // the progressbars are updated accordingly (having a maximum value of 10000).
                 progressCounter = (i + 1) * 1000;
                 if (progress != null)
                 {
@@ -153,6 +179,12 @@ namespace JobChanceCalculator
             }
         }
 
+        /// <summary>
+        /// Function calling the Cancel method of the CancellationTokenSource from which the CancellationToken is created used for this object. 
+        /// The origin of the Cancel request is required to further handle the cancellation for different cases.
+        /// </summary>
+        /// <param name="origin"></param>
+        /// <param name="cts"></param>
         public void CancelCalculation(string origin, CancellationTokenSource cts)
         {
             cts.Cancel();

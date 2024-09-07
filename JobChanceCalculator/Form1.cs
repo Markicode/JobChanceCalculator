@@ -256,8 +256,6 @@ namespace JobChanceCalculator
                 MessageBox.Show("Enter a first and a last name.");
                 return false;
             }
-
-            // TODO: implement regex for user input
         }
 
         private async void CalculateButton1_Click(object sender, EventArgs e)
@@ -639,7 +637,7 @@ namespace JobChanceCalculator
             {
                 MessageBox.Show("Index out of range.");
             }
-
+            // TODO: Think about possible exceptions.
         }
 
         private void GraduationHeaderLabel1_Click(object sender, EventArgs e)
