@@ -3,8 +3,12 @@ using System.Text.RegularExpressions;
 
 namespace JobChanceCalculator
 {
+    /// <summary>
+    /// Form class handling graphical output and user input (GUI).
+    /// </summary>
     public partial class Form1 : Form
     {
+        // Declaration of various variables, using lists of form controls to be able to iterate over.
         DbConnection dbConn;
         List<Label> firstNameLabels;
         List<Label> lastNameLabels;
@@ -27,6 +31,9 @@ namespace JobChanceCalculator
         Assignment assignment;
         int mainProgress;
 
+        /// <summary>
+        /// Constructor for the GUI class, subscribing to events, filling several lists and customizing form controls.
+        /// </summary>
         public Form1()
         {
             InitializeComponent();
@@ -138,6 +145,11 @@ namespace JobChanceCalculator
         public event taskCanceledDelegate taskCanceled;
         public event exceptionOccuredDelegate exceptionOccured;
 
+        /// <summary>
+        /// Code executed upon clicking the start button. 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void ButtonStart_Click(object sender, EventArgs e)
         {
             try
@@ -151,6 +163,10 @@ namespace JobChanceCalculator
             ButtonStart.Enabled = false;
         }
 
+        /// <summary>
+        /// Adds a message to the log textbox.
+        /// </summary>
+        /// <param name="message"></param>
         private void AddLogMessage(string message)
         {
             if (LogTextBox.InvokeRequired)
@@ -161,6 +177,10 @@ namespace JobChanceCalculator
             LogTextBox.AppendText($"{DateTime.Now} - {message} \r\n");
         }
 
+        /// <summary>
+        /// Initialization Task responsible for setting up / querying the database, and filling/editing the form controls according to the data received.
+        /// Also sets up the cancellation sources and tokens for al the available positions on the form.
+        /// </summary>
         private async Task Initialize()
         {
             AddLogMessage("Initialization started.");
@@ -232,12 +252,16 @@ namespace JobChanceCalculator
             RebuildButton.Enabled = true;
         }
 
-
-
+        /// <summary>
+        /// Function performing validation on user input for given textboxes. Generates a messagebox in case of false validation.
+        /// </summary>
+        /// <param name="textBoxNumber"></param>
+        /// <returns>boolean input validated</returns>
         private bool validateInput(int textBoxNumber)
         {
             string firstName = firstNameTextBoxes[textBoxNumber].Text;
             string lastName = lastNameTextBoxes[textBoxNumber].Text;
+            // Regular expression allowing characters a-z, 0-9, - and whitespaces.
             string pattern = @"^[\w\-\s]+$";
             if (firstName != "" && lastName != "")
             {
@@ -258,6 +282,12 @@ namespace JobChanceCalculator
             }
         }
 
+        /// <summary>
+        /// The calculate buttons are used for initiating the tasks that perform the calculations. 
+        /// The Task is added to the activeTasks list, so all tasks can be awaited on when everything is canceled at once using the rebuild button. 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void CalculateButton1_Click(object sender, EventArgs e)
         {
             Task calculate1 = HandleCalculation(0);
@@ -419,9 +449,15 @@ namespace JobChanceCalculator
             activeTasks.Remove(calculate10);
         }
 
-
+        /// <summary>
+        /// Task performing operations on various form controls in case calculations are being performed for a person. 
+        /// Checks for cancellation request and handles accordingly.
+        /// </summary>
+        /// <param name="position"></param>
+        /// <returns></returns>
         private async Task HandleCalculation(int position)
         {
+            // Configuring controls on start of calculation and subscribing to events.
             MainProgressBar.Maximum += 10000;
             graduationLabels[position].Text = "";
             jobLabels[position].Text = "";
@@ -441,6 +477,7 @@ namespace JobChanceCalculator
             selectedPerson.calculationCompleted += AddLogMessage;
             selectedPerson.mainProgressUpdated += updateMainProgressBar;
 
+            // Performing calculation and checking for cancellation.
             Task calculationTask = Task.Run(() => selectedPerson.CalculateChances(progresses[position], progresses[10], cancelTokens[position]));
             try
             {
@@ -451,8 +488,11 @@ namespace JobChanceCalculator
                 this.taskCanceled($"{selectedPerson.firstName} {selectedPerson.lastName}: Calculations canceled.");
             }
 
+            // Code to perform when calculation isnt canceled.
             if (!cancelTokens[position].IsCancellationRequested)
             {
+                // Update progress bars when calculations are finished. 
+                // Small workaround to avoid delay in progress bar flow towards the end.
                 if (progressBars[position].Value == progressBars[position].Maximum)
                 {
                     mainProgress -= 10000;
@@ -478,6 +518,7 @@ namespace JobChanceCalculator
                 addDeleteButtons[position].Enabled = true;
                 editButtons[position].Enabled = true;
             }
+            // Code to perform when cancellation is requested. Different actions are necessary depending on the origin of cancellation.
             else
             {
                 MainProgressBar.Maximum -= 10000;
@@ -502,7 +543,7 @@ namespace JobChanceCalculator
                     editButtons[position].Enabled = false;
                 }
             }
-            
+            // Unsubscribing from events when calculations are finished or canceled.
             selectedPerson.graduationChanceCalculated -= AddLogMessage;
             selectedPerson.jobChanceCalculated -= AddLogMessage;
             selectedPerson.calculationCompleted -= AddLogMessage;
@@ -573,6 +614,11 @@ namespace JobChanceCalculator
             await this.HandleCancellation(9);
         }
 
+        /// <summary>
+        /// Task performed when a cancelbutton on given position is clicked. 
+        /// </summary>
+        /// <param name="position"></param>
+        /// <returns></returns>
         private async Task HandleCancellation(int position)
         {
             Person selectedPerson = peopleArray[position];
@@ -583,6 +629,11 @@ namespace JobChanceCalculator
             }
         }
 
+        /// <summary>
+        /// Task cancelling all active tasks and rebuilds / reinitializes the database and form. 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void RebuildButton_Click(object sender, EventArgs e)
         {
             RebuildButton.Enabled = false;
@@ -618,6 +669,12 @@ namespace JobChanceCalculator
             }
         }
 
+        /// <summary>
+        /// Function handling thrown exceptions from various tasks. 
+        /// </summary>
+        /// <param name="e"></param>
+        /// <param name="position"></param>
+        /// <param name="operation"></param>
         private void HandleException(Exception e, int position, string operation)
         {
             if (e is SqliteException)
@@ -636,8 +693,13 @@ namespace JobChanceCalculator
             if (e is IndexOutOfRangeException)
             {
                 MessageBox.Show("Index out of range.");
+                this.exceptionOccured(e.Message);
             }
-            // TODO: Think about possible exceptions.
+            else
+            {
+                MessageBox.Show("Unidentified error, check log for more information.");
+                this.exceptionOccured(e.Message);
+            }
         }
 
         private void GraduationHeaderLabel1_Click(object sender, EventArgs e)

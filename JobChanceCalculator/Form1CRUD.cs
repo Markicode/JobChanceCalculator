@@ -8,6 +8,12 @@ namespace JobChanceCalculator
 {
     public partial class Form1
     {
+        /// <summary>
+        /// The AddDeleteButtons have 2 seperate functions depending on whether the position is null, or has a person assigned to it.
+        /// The code to perform is handled in the function called upon by clicking the button.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void AddDeleteButton1_Click(object sender, EventArgs e)
         {
             Task addDelete1 = HandleAddDelete(0);
@@ -88,6 +94,12 @@ namespace JobChanceCalculator
             activeTasks.Remove(addDelete10);
         }
 
+        /// <summary>
+        /// Task checking if given position has a person assigned to it, and adds or deletes a person on execution. 
+        /// Updates form accordingly.
+        /// </summary>
+        /// <param name="position"></param>
+        /// <returns></returns>
         private async Task HandleAddDelete(int position)
         {
             Person? personAdded = null;
@@ -243,6 +255,10 @@ namespace JobChanceCalculator
             activeTasks.Remove(editSubmit10);
         }
 
+        /// <summary>
+        /// Task executed when a EditSubmitButton is clicked. Updates person info in the database after validation approval.
+        /// </summary>
+        /// <param name="position"></param>
         private async Task HandleEdit(int position)
         {
             if (editButtons[position].Text == "Edit")
