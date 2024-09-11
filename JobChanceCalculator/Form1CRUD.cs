@@ -122,6 +122,8 @@ namespace JobChanceCalculator
                     lastNameTextBoxes[position].Text = "";
                     firstNameTextBoxes[position].Visible = true;
                     lastNameTextBoxes[position].Visible = true;
+                    firstNameTextBoxes[position].Enabled = true;
+                    lastNameTextBoxes[position].Enabled = true;
                 }
                 catch (Exception e)
                 {

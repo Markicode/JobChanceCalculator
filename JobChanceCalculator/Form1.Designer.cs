@@ -1680,7 +1680,7 @@
             Controls.Add(ProgressBar1);
             Controls.Add(ButtonStart);
             Name = "Form1";
-            Text = "Form1";
+            Text = "Job Chance Calculator";
             ResumeLayout(false);
             PerformLayout();
         }
